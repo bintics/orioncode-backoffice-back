@@ -90,12 +90,7 @@ public class EmployeeService {
         employee.setLastName(requestDTO.getLastName());
         employee.setPosition(position);
         employee.setTeam(requestDTO.getTeam());
-        
-        // Clear and update tags to avoid immutability issues
-        employee.getTags().clear();
-        if (requestDTO.getTags() != null) {
-            employee.getTags().addAll(requestDTO.getTags());
-        }
+        employee.setTags(requestDTO.getTags() != null ? new ArrayList<>(requestDTO.getTags()) : new ArrayList<>());
 
         Employee updatedEmployee = employeeRepository.save(employee);
         return convertToDTO(updatedEmployee);
