@@ -1,8 +1,8 @@
-package com.orioncode.backoffice.employee.controller;
+package com.orioncode.backoffice.collaborators.controller;
 
-import com.orioncode.backoffice.employee.dto.EmployeeRequestDTO;
-import com.orioncode.backoffice.employee.dto.EmployeeResponseDTO;
-import com.orioncode.backoffice.employee.service.EmployeeService;
+import com.orioncode.backoffice.collaborators.dto.EmployeeRequestDTO;
+import com.orioncode.backoffice.collaborators.dto.EmployeeResponseDTO;
+import com.orioncode.backoffice.collaborators.service.EmployeeService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/employees")
+@RequestMapping("/collaborators")
 @RequiredArgsConstructor
 @Tag(name = "Colaboradores", description = "API para gestión de colaboradores")
 public class EmployeeController {

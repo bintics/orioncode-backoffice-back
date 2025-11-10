@@ -1,9 +1,9 @@
-package com.orioncode.backoffice.employee;
+package com.orioncode.backoffice.collaborators;
 
-import com.orioncode.backoffice.employee.dto.EmployeeRequestDTO;
-import com.orioncode.backoffice.employee.dto.EmployeeResponseDTO;
-import com.orioncode.backoffice.employee.repository.EmployeeRepository;
-import com.orioncode.backoffice.employee.service.EmployeeService;
+import com.orioncode.backoffice.collaborators.dto.EmployeeRequestDTO;
+import com.orioncode.backoffice.collaborators.dto.EmployeeResponseDTO;
+import com.orioncode.backoffice.collaborators.repository.EmployeeRepository;
+import com.orioncode.backoffice.collaborators.service.EmployeeService;
 import com.orioncode.backoffice.position.dto.PositionRequestDTO;
 import com.orioncode.backoffice.position.dto.PositionResponseDTO;
 import com.orioncode.backoffice.position.repository.PositionRepository;

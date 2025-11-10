@@ -1,4 +1,4 @@
-package com.orioncode.backoffice.employee.dto;
+package com.orioncode.backoffice.collaborators.dto;
 
 import com.orioncode.backoffice.position.dto.PositionResponseDTO;
 import lombok.AllArgsConstructor;

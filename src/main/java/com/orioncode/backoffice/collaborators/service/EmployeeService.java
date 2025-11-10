@@ -1,10 +1,10 @@
-package com.orioncode.backoffice.employee.service;
+package com.orioncode.backoffice.collaborators.service;
 
 import com.orioncode.backoffice.common.exception.ResourceNotFoundException;
-import com.orioncode.backoffice.employee.dto.EmployeeRequestDTO;
-import com.orioncode.backoffice.employee.dto.EmployeeResponseDTO;
-import com.orioncode.backoffice.employee.entity.Employee;
-import com.orioncode.backoffice.employee.repository.EmployeeRepository;
+import com.orioncode.backoffice.collaborators.dto.EmployeeRequestDTO;
+import com.orioncode.backoffice.collaborators.dto.EmployeeResponseDTO;
+import com.orioncode.backoffice.collaborators.entity.Employee;
+import com.orioncode.backoffice.collaborators.repository.EmployeeRepository;
 import com.orioncode.backoffice.position.dto.PositionResponseDTO;
 import com.orioncode.backoffice.position.entity.Position;
 import com.orioncode.backoffice.position.repository.PositionRepository;

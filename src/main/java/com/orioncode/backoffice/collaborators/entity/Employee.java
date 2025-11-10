@@ -1,4 +1,4 @@
-package com.orioncode.backoffice.employee.entity;
+package com.orioncode.backoffice.collaborators.entity;
 
 import com.orioncode.backoffice.position.entity.Position;
 import jakarta.persistence.*;

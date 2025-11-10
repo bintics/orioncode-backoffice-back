@@ -1,4 +1,4 @@
-package com.orioncode.backoffice.employee.dto;
+package com.orioncode.backoffice.collaborators.dto;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;

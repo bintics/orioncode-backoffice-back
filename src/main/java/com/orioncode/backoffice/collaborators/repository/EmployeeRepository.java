@@ -1,6 +1,6 @@
-package com.orioncode.backoffice.employee.repository;
+package com.orioncode.backoffice.collaborators.repository;
 
-import com.orioncode.backoffice.employee.entity.Employee;
+import com.orioncode.backoffice.collaborators.entity.Employee;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
