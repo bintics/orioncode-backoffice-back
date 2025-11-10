@@ -1,2 +1,202 @@
-# orioncode-backoffice-back
-Repositorio para gestionar el backoffice general
+# OrionCode Backoffice Backend
+
+API REST desarrollada con Java, Spring Boot y MySQL para la gestión de puestos y colaboradores, utilizando arquitectura de vertical slicing.
+
+## 📋 Características
+
+- **Gestión de Puestos**: CRUD completo para administración de puestos de trabajo
+- **Gestión de Colaboradores**: CRUD completo con información de colaboradores, incluyendo:
+  - Código de colaborador
+  - Nombre y apellidos
+  - Puesto asignado
+  - Equipo al que pertenece
+  - Tags para clasificación
+- **Arquitectura de Vertical Slicing**: Cada módulo es independiente y puede ser promovido fácilmente a microservicio
+- **Documentación API**: Swagger/OpenAPI integrado
+- **Validaciones**: Validación de datos de entrada
+- **Manejo de Errores**: Sistema global de manejo de excepciones
+
+## 🏗️ Arquitectura
+
+El proyecto utiliza **vertical slicing**, donde cada módulo contiene todas sus capas:
+
+```
+position/
+├── entity/         # Entidades JPA
+├── dto/            # DTOs de request/response
+├── repository/     # Repositorios Spring Data
+├── service/        # Lógica de negocio
+└── controller/     # Controladores REST
+
+employee/
+├── entity/
+├── dto/
+├── repository/
+├── service/
+└── controller/
+```
+
+Esta arquitectura facilita la promoción de cada módulo a microservicio independiente.
+
+## 🛠️ Tecnologías
+
+- **Java 17**
+- **Spring Boot 3.1.5**
+- **Spring Data JPA**
+- **MySQL**
+- **Maven**
+- **Lombok**
+- **SpringDoc OpenAPI (Swagger)**
+- **H2 Database** (para tests)
+
+## 📦 Requisitos Previos
+
+- JDK 17 o superior
+- Maven 3.6+
+- MySQL 8.0+
+
+## 🚀 Instalación y Configuración
+
+### 1. Clonar el repositorio
+
+```bash
+git clone https://github.com/bintics/orioncode-backoffice-back.git
+cd orioncode-backoffice-back
+```
+
+### 2. Configurar la base de datos
+
+Crear la base de datos en MySQL:
+
+```sql
+CREATE DATABASE orioncode_backoffice;
+```
+
+### 3. Configurar application.properties
+
+Editar `src/main/resources/application.properties` con tus credenciales de MySQL:
+
+```properties
+spring.datasource.url=jdbc:mysql://localhost:3306/orioncode_backoffice?createDatabaseIfNotExist=true&useSSL=false&serverTimezone=UTC
+spring.datasource.username=tu_usuario
+spring.datasource.password=tu_contraseña
+```
+
+### 4. Compilar el proyecto
+
+```bash
+mvn clean install
+```
+
+### 5. Ejecutar la aplicación
+
+```bash
+mvn spring-boot:run
+```
+
+La aplicación estará disponible en: `http://localhost:8080/api`
+
+## 📚 Documentación API
+
+Una vez la aplicación esté ejecutándose, accede a la documentación Swagger en:
+
+```
+http://localhost:8080/api/swagger-ui.html
+```
+
+## 🔌 Endpoints Principales
+
+### Puestos (Positions)
+
+- `GET /api/positions` - Obtener todos los puestos
+- `GET /api/positions/{id}` - Obtener puesto por ID
+- `POST /api/positions` - Crear nuevo puesto
+- `PUT /api/positions/{id}` - Actualizar puesto
+- `DELETE /api/positions/{id}` - Eliminar puesto
+
+### Colaboradores (Employees)
+
+- `GET /api/employees` - Obtener todos los colaboradores
+- `GET /api/employees/{id}` - Obtener colaborador por ID
+- `GET /api/employees/team/{team}` - Obtener colaboradores por equipo
+- `GET /api/employees/position/{positionId}` - Obtener colaboradores por puesto
+- `POST /api/employees` - Crear nuevo colaborador
+- `PUT /api/employees/{id}` - Actualizar colaborador
+- `DELETE /api/employees/{id}` - Eliminar colaborador
+
+## 📝 Ejemplos de Uso
+
+### Crear un Puesto
+
+```bash
+curl -X POST http://localhost:8080/api/positions \
+  -H "Content-Type: application/json" \
+  -d '{
+    "name": "Desarrollador Senior",
+    "description": "Desarrollador de software con experiencia"
+  }'
+```
+
+### Crear un Colaborador
+
+```bash
+curl -X POST http://localhost:8080/api/employees \
+  -H "Content-Type: application/json" \
+  -d '{
+    "employeeCode": "EMP001",
+    "firstName": "Juan",
+    "lastName": "Pérez",
+    "positionId": 1,
+    "team": "Desarrollo",
+    "tags": ["Java", "Spring Boot", "MySQL"]
+  }'
+```
+
+## 🧪 Testing
+
+Ejecutar todos los tests:
+
+```bash
+mvn test
+```
+
+Los tests utilizan H2 in-memory database, por lo que no necesitas tener MySQL corriendo para ejecutarlos.
+
+## 🏢 Estructura del Proyecto
+
+```
+src/
+├── main/
+│   ├── java/com/orioncode/backoffice/
+│   │   ├── common/exception/        # Manejo global de excepciones
+│   │   ├── config/                  # Configuración (OpenAPI, etc.)
+│   │   ├── position/                # Módulo de puestos
+│   │   ├── employee/                # Módulo de colaboradores
+│   │   └── BackofficeApplication.java
+│   └── resources/
+│       └── application.properties
+└── test/
+    ├── java/com/orioncode/backoffice/
+    │   ├── position/
+    │   └── employee/
+    └── resources/
+        └── application.properties
+```
+
+## 🔄 Migración a Microservicios
+
+Cada módulo (position, employee) está diseñado para ser independiente y puede ser extraído fácilmente como microservicio:
+
+1. Copiar el módulo a un nuevo proyecto
+2. Agregar su propia configuración de base de datos
+3. Agregar dependencias necesarias
+4. Configurar el puerto y contexto
+5. Desplegar independientemente
+
+## 📄 Licencia
+
+Este proyecto es propiedad de OrionCode.
+
+## 👥 Contribuidores
+
+- OrionCode Team
