@@ -8,9 +8,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface EmployeeRepository extends JpaRepository<Employee, Long> {
-    Optional<Employee> findByEmployeeCode(String employeeCode);
-    boolean existsByEmployeeCode(String employeeCode);
+public interface EmployeeRepository extends JpaRepository<Employee, String> {
     List<Employee> findByTeam(String team);
-    List<Employee> findByPositionId(Long positionId);
+    List<Employee> findByPositionId(String positionId);
 }

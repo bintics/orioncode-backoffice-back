@@ -29,7 +29,7 @@ public class EmployeeController {
 
     @GetMapping("/{id}")
     @Operation(summary = "Obtener colaborador por ID", description = "Retorna un colaborador específico por su ID")
-    public ResponseEntity<EmployeeResponseDTO> getEmployeeById(@PathVariable Long id) {
+    public ResponseEntity<EmployeeResponseDTO> getEmployeeById(@PathVariable String id) {
         return ResponseEntity.ok(employeeService.getEmployeeById(id));
     }
 
@@ -41,7 +41,7 @@ public class EmployeeController {
 
     @GetMapping("/position/{positionId}")
     @Operation(summary = "Obtener colaboradores por puesto", description = "Retorna todos los colaboradores con un puesto específico")
-    public ResponseEntity<List<EmployeeResponseDTO>> getEmployeesByPosition(@PathVariable Long positionId) {
+    public ResponseEntity<List<EmployeeResponseDTO>> getEmployeesByPosition(@PathVariable String positionId) {
         return ResponseEntity.ok(employeeService.getEmployeesByPosition(positionId));
     }
 
@@ -55,14 +55,14 @@ public class EmployeeController {
     @PutMapping("/{id}")
     @Operation(summary = "Actualizar colaborador", description = "Actualiza un colaborador existente")
     public ResponseEntity<EmployeeResponseDTO> updateEmployee(
-            @PathVariable Long id,
+            @PathVariable String id,
             @Valid @RequestBody EmployeeRequestDTO requestDTO) {
         return ResponseEntity.ok(employeeService.updateEmployee(id, requestDTO));
     }
 
     @DeleteMapping("/{id}")
     @Operation(summary = "Eliminar colaborador", description = "Elimina un colaborador por su ID")
-    public ResponseEntity<Void> deleteEmployee(@PathVariable Long id) {
+    public ResponseEntity<Void> deleteEmployee(@PathVariable String id) {
         employeeService.deleteEmployee(id);
         return ResponseEntity.noContent().build();
     }

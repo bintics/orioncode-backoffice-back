@@ -1,4 +1,4 @@
-package com.orioncode.backoffice.position.dto;
+package com.orioncode.backoffice.team.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class PositionResponseDTO {
+public class TeamResponseDTO {
 
     private String id;
     private String name;
@@ -17,3 +17,4 @@ public class PositionResponseDTO {
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 }
+

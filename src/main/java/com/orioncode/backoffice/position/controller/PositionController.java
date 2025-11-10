@@ -29,7 +29,7 @@ public class PositionController {
 
     @GetMapping("/{id}")
     @Operation(summary = "Obtener puesto por ID", description = "Retorna un puesto específico por su ID")
-    public ResponseEntity<PositionResponseDTO> getPositionById(@PathVariable Long id) {
+    public ResponseEntity<PositionResponseDTO> getPositionById(@PathVariable String id) {
         return ResponseEntity.ok(positionService.getPositionById(id));
     }
 
@@ -43,14 +43,14 @@ public class PositionController {
     @PutMapping("/{id}")
     @Operation(summary = "Actualizar puesto", description = "Actualiza un puesto existente")
     public ResponseEntity<PositionResponseDTO> updatePosition(
-            @PathVariable Long id,
+            @PathVariable String id,
             @Valid @RequestBody PositionRequestDTO requestDTO) {
         return ResponseEntity.ok(positionService.updatePosition(id, requestDTO));
     }
 
     @DeleteMapping("/{id}")
     @Operation(summary = "Eliminar puesto", description = "Elimina un puesto por su ID")
-    public ResponseEntity<Void> deletePosition(@PathVariable Long id) {
+    public ResponseEntity<Void> deletePosition(@PathVariable String id) {
         positionService.deletePosition(id);
         return ResponseEntity.noContent().build();
     }

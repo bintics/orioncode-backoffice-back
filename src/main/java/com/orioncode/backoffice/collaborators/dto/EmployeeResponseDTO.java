@@ -13,8 +13,7 @@ import java.util.List;
 @AllArgsConstructor
 public class EmployeeResponseDTO {
 
-    private Long id;
-    private String employeeCode;
+    private String id;
     private String firstName;
     private String lastName;
     private PositionResponseDTO position;

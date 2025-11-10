@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
@@ -31,7 +32,7 @@ public class EmployeeService {
     }
 
     @Transactional(readOnly = true)
-    public EmployeeResponseDTO getEmployeeById(Long id) {
+    public EmployeeResponseDTO getEmployeeById(String id) {
         Employee employee = employeeRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Colaborador no encontrado con ID: " + id));
         return convertToDTO(employee);
@@ -45,7 +46,7 @@ public class EmployeeService {
     }
 
     @Transactional(readOnly = true)
-    public List<EmployeeResponseDTO> getEmployeesByPosition(Long positionId) {
+    public List<EmployeeResponseDTO> getEmployeesByPosition(String positionId) {
         return employeeRepository.findByPositionId(positionId).stream()
                 .map(this::convertToDTO)
                 .collect(Collectors.toList());
@@ -53,15 +54,18 @@ public class EmployeeService {
 
     @Transactional
     public EmployeeResponseDTO createEmployee(EmployeeRequestDTO requestDTO) {
-        if (employeeRepository.existsByEmployeeCode(requestDTO.getEmployeeCode())) {
-            throw new IllegalArgumentException("Ya existe un colaborador con el código: " + requestDTO.getEmployeeCode());
+        String employeeId = requestDTO.getId();
+        if (employeeId == null || employeeId.trim().isEmpty()) {
+            employeeId = UUID.randomUUID().toString();
+        } else if (employeeRepository.existsById(employeeId)) {
+            throw new IllegalArgumentException("Ya existe un colaborador con el ID: " + employeeId);
         }
 
         Position position = positionRepository.findById(requestDTO.getPositionId())
                 .orElseThrow(() -> new ResourceNotFoundException("Puesto no encontrado con ID: " + requestDTO.getPositionId()));
 
         Employee employee = new Employee();
-        employee.setEmployeeCode(requestDTO.getEmployeeCode());
+        employee.setId(employeeId);
         employee.setFirstName(requestDTO.getFirstName());
         employee.setLastName(requestDTO.getLastName());
         employee.setPosition(position);
@@ -73,19 +77,13 @@ public class EmployeeService {
     }
 
     @Transactional
-    public EmployeeResponseDTO updateEmployee(Long id, EmployeeRequestDTO requestDTO) {
+    public EmployeeResponseDTO updateEmployee(String id, EmployeeRequestDTO requestDTO) {
         Employee employee = employeeRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Colaborador no encontrado con ID: " + id));
-
-        if (!employee.getEmployeeCode().equals(requestDTO.getEmployeeCode()) &&
-            employeeRepository.existsByEmployeeCode(requestDTO.getEmployeeCode())) {
-            throw new IllegalArgumentException("Ya existe un colaborador con el código: " + requestDTO.getEmployeeCode());
-        }
 
         Position position = positionRepository.findById(requestDTO.getPositionId())
                 .orElseThrow(() -> new ResourceNotFoundException("Puesto no encontrado con ID: " + requestDTO.getPositionId()));
 
-        employee.setEmployeeCode(requestDTO.getEmployeeCode());
         employee.setFirstName(requestDTO.getFirstName());
         employee.setLastName(requestDTO.getLastName());
         employee.setPosition(position);
@@ -97,7 +95,7 @@ public class EmployeeService {
     }
 
     @Transactional
-    public void deleteEmployee(Long id) {
+    public void deleteEmployee(String id) {
         if (!employeeRepository.existsById(id)) {
             throw new ResourceNotFoundException("Colaborador no encontrado con ID: " + id);
         }
@@ -115,7 +113,6 @@ public class EmployeeService {
 
         return new EmployeeResponseDTO(
                 employee.getId(),
-                employee.getEmployeeCode(),
                 employee.getFirstName(),
                 employee.getLastName(),
                 positionDTO,

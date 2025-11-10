@@ -1,4 +1,4 @@
-package com.orioncode.backoffice.position.entity;
+package com.orioncode.backoffice.team.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -8,19 +8,19 @@ import lombok.NoArgsConstructor;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "positions")
+@Table(name = "teams")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Position {
+public class Team {
 
     @Id
     private String id;
 
-    @Column(nullable = false, unique = true, length = 100)
+    @Column(name = "name", nullable = false, unique = true, length = 100)
     private String name;
 
-    @Column(length = 500)
+    @Column(name = "description", length = 500)
     private String description;
 
     @Column(name = "created_at", nullable = false, updatable = false)
@@ -40,3 +40,4 @@ public class Position {
         updatedAt = LocalDateTime.now();
     }
 }
+

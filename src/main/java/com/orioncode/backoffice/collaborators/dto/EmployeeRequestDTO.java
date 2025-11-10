@@ -14,9 +14,7 @@ import java.util.List;
 @AllArgsConstructor
 public class EmployeeRequestDTO {
 
-    @NotBlank(message = "El código de colaborador es requerido")
-    @Size(min = 3, max = 50, message = "El código debe tener entre 3 y 50 caracteres")
-    private String employeeCode;
+    private String id;
 
     @NotBlank(message = "El nombre es requerido")
     @Size(min = 2, max = 100, message = "El nombre debe tener entre 2 y 100 caracteres")
@@ -27,7 +25,7 @@ public class EmployeeRequestDTO {
     private String lastName;
 
     @NotNull(message = "El ID del puesto es requerido")
-    private Long positionId;
+    private String positionId;
 
     @Size(max = 100, message = "El equipo no puede exceder 100 caracteres")
     private String team;

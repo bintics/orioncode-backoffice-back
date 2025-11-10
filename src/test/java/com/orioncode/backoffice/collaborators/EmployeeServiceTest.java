@@ -60,7 +60,6 @@ class EmployeeServiceTest {
 
         assertNotNull(responseDTO);
         assertNotNull(responseDTO.getId());
-        assertEquals("EMP001", responseDTO.getEmployeeCode());
         assertEquals("Juan", responseDTO.getFirstName());
         assertEquals("Pérez", responseDTO.getLastName());
         assertEquals("Team A", responseDTO.getTeam());
@@ -105,7 +104,6 @@ class EmployeeServiceTest {
         
         EmployeeResponseDTO updated = employeeService.updateEmployee(created.getId(), updateDTO);
 
-        assertEquals("EMP001-UPD", updated.getEmployeeCode());
         assertEquals("Juan Carlos", updated.getFirstName());
         assertEquals("Team B", updated.getTeam());
     }

@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
@@ -26,7 +27,7 @@ public class PositionService {
     }
 
     @Transactional(readOnly = true)
-    public PositionResponseDTO getPositionById(Long id) {
+    public PositionResponseDTO getPositionById(String id) {
         Position position = positionRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Puesto no encontrado con ID: " + id));
         return convertToDTO(position);
@@ -39,6 +40,7 @@ public class PositionService {
         }
 
         Position position = new Position();
+        position.setId(UUID.randomUUID().toString());
         position.setName(requestDTO.getName());
         position.setDescription(requestDTO.getDescription());
 
@@ -47,7 +49,7 @@ public class PositionService {
     }
 
     @Transactional
-    public PositionResponseDTO updatePosition(Long id, PositionRequestDTO requestDTO) {
+    public PositionResponseDTO updatePosition(String id, PositionRequestDTO requestDTO) {
         Position position = positionRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Puesto no encontrado con ID: " + id));
 
@@ -64,7 +66,7 @@ public class PositionService {
     }
 
     @Transactional
-    public void deletePosition(Long id) {
+    public void deletePosition(String id) {
         if (!positionRepository.existsById(id)) {
             throw new ResourceNotFoundException("Puesto no encontrado con ID: " + id);
         }

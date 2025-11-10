@@ -18,11 +18,7 @@ import java.util.List;
 public class Employee {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-    @Column(name = "employee_code", nullable = false, unique = true, length = 50)
-    private String employeeCode;
+    private String id;
 
     @Column(name = "first_name", nullable = false, length = 100)
     private String firstName;
