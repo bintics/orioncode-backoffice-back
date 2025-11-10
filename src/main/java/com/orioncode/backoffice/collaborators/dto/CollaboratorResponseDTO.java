@@ -11,7 +11,7 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class EmployeeResponseDTO {
+public class CollaboratorResponseDTO {
 
     private String id;
     private String firstName;

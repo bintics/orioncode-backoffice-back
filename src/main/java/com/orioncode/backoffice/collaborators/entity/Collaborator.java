@@ -11,11 +11,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "employees")
+@Table(name = "collaborators")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Employee {
+public class Collaborator {
 
     @Id
     private String id;
@@ -34,7 +34,7 @@ public class Employee {
     private String team;
 
     @ElementCollection(fetch = FetchType.EAGER)
-    @CollectionTable(name = "employee_tags", joinColumns = @JoinColumn(name = "employee_id"))
+    @CollectionTable(name = "collaborator_tags", joinColumns = @JoinColumn(name = "collaborator_id"))
     @Column(name = "tag")
     private List<String> tags = new ArrayList<>();
 

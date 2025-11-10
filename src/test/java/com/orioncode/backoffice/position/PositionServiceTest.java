@@ -12,6 +12,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -32,7 +33,7 @@ class PositionServiceTest {
 
     @Test
     void testCreatePosition() {
-        PositionRequestDTO requestDTO = new PositionRequestDTO("Desarrollador", "Desarrollador de software");
+        PositionRequestDTO requestDTO = new PositionRequestDTO(UUID.randomUUID().toString(), "Desarrollador", "Desarrollador de software");
         PositionResponseDTO responseDTO = positionService.createPosition(requestDTO);
 
         assertNotNull(responseDTO);
@@ -43,8 +44,8 @@ class PositionServiceTest {
 
     @Test
     void testGetAllPositions() {
-        positionService.createPosition(new PositionRequestDTO("Desarrollador", "Desarrollador de software"));
-        positionService.createPosition(new PositionRequestDTO("Gerente", "Gerente de proyecto"));
+        positionService.createPosition(new PositionRequestDTO(UUID.randomUUID().toString(), "Desarrollador", "Desarrollador de software"));
+        positionService.createPosition(new PositionRequestDTO(UUID.randomUUID().toString(), "Gerente", "Gerente de proyecto"));
 
         List<PositionResponseDTO> positions = positionService.getAllPositions();
 
@@ -53,9 +54,9 @@ class PositionServiceTest {
 
     @Test
     void testUpdatePosition() {
-        PositionResponseDTO created = positionService.createPosition(new PositionRequestDTO("Desarrollador", "Dev"));
+        PositionResponseDTO created = positionService.createPosition(new PositionRequestDTO(UUID.randomUUID().toString(), "Desarrollador", "Dev"));
         
-        PositionRequestDTO updateDTO = new PositionRequestDTO("Desarrollador Senior", "Senior Dev");
+        PositionRequestDTO updateDTO = new PositionRequestDTO(null, "Desarrollador Senior", "Senior Dev");
         PositionResponseDTO updated = positionService.updatePosition(created.getId(), updateDTO);
 
         assertEquals("Desarrollador Senior", updated.getName());
@@ -64,7 +65,7 @@ class PositionServiceTest {
 
     @Test
     void testDeletePosition() {
-        PositionResponseDTO created = positionService.createPosition(new PositionRequestDTO("Desarrollador", "Dev"));
+        PositionResponseDTO created = positionService.createPosition(new PositionRequestDTO(UUID.randomUUID().toString(), "Desarrollador", "Dev"));
         
         positionService.deletePosition(created.getId());
         

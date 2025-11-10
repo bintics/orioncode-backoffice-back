@@ -35,12 +35,21 @@ public class PositionService {
 
     @Transactional
     public PositionResponseDTO createPosition(PositionRequestDTO requestDTO) {
+        String positionId = requestDTO.getId();
+        if (positionId == null || positionId.trim().isEmpty()) {
+            throw new IllegalArgumentException("El ID del puesto es requerido");
+        }
+        
+        if (positionRepository.existsById(positionId)) {
+            throw new IllegalArgumentException("Ya existe un puesto con el ID: " + positionId);
+        }
+        
         if (positionRepository.existsByName(requestDTO.getName())) {
             throw new IllegalArgumentException("Ya existe un puesto con el nombre: " + requestDTO.getName());
         }
 
         Position position = new Position();
-        position.setId(UUID.randomUUID().toString());
+        position.setId(positionId);
         position.setName(requestDTO.getName());
         position.setDescription(requestDTO.getDescription());
 

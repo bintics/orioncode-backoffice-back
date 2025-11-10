@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class TeamRequestDTO {
 
+    private String id;
     private String name;
     private String description;
 }

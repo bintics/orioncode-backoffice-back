@@ -42,12 +42,21 @@ public class TeamService {
 
     @Transactional
     public TeamResponseDTO createTeam(TeamRequestDTO requestDTO) {
+        String teamId = requestDTO.getId();
+        if (teamId == null || teamId.trim().isEmpty()) {
+            throw new IllegalArgumentException("El ID del equipo es requerido");
+        }
+        
+        if (teamRepository.existsById(teamId)) {
+            throw new IllegalArgumentException("Ya existe un equipo con el ID: " + teamId);
+        }
+        
         if (teamRepository.existsByName(requestDTO.getName())) {
             throw new IllegalArgumentException("Team with name '" + requestDTO.getName() + "' already exists");
         }
 
         Team team = new Team();
-        team.setId(UUID.randomUUID().toString());
+        team.setId(teamId);
         team.setName(requestDTO.getName());
         team.setDescription(requestDTO.getDescription());
 
