@@ -24,6 +24,10 @@ public class PositionController {
 
     private final PositionService positionService;
 
+    /**
+     * Endpoint para búsqueda de puestos con paginación completa.
+     * Se ejecuta cuando NO se envía el header X-dropdown.
+     */
     @GetMapping
     @Operation(
         summary = "Buscar puestos con paginación",
@@ -56,6 +60,26 @@ public class PositionController {
         PageResponse<PositionResponseDTO> result = positionService.searchPositions(filter, search, pageable);
 
         return ResponseEntity.ok(result);
+    }
+
+    /**
+     * Endpoint para obtener puestos en modo dropdown (máximo 20 registros).
+     * Se ejecuta SOLO cuando se envía el header X-dropdown.
+     */
+    @GetMapping(headers = "X-dropdown")
+    @Operation(
+        summary = "Obtener puestos para lista desplegable",
+        description = "Retorna un máximo de 20 puestos ordenados por nombre. " +
+                     "Opcionalmente se puede filtrar con el parámetro 'search' que busca en name, description e id. " +
+                     "Este endpoint está optimizado para llenar listas desplegables en el frontend. " +
+                     "REQUIERE el header X-dropdown para activarse."
+    )
+    public ResponseEntity<java.util.List<PositionResponseDTO>> getPositionsForDropdown(
+            @Parameter(description = "Valor a buscar en name, description e id (opcional)")
+            @RequestParam(required = false) String search
+    ) {
+        java.util.List<PositionResponseDTO> positions = positionService.getPositionsForDropdown(search);
+        return ResponseEntity.ok(positions);
     }
 
     @GetMapping("/{id}")

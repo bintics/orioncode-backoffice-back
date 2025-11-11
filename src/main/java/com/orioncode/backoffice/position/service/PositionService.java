@@ -10,7 +10,9 @@ import com.orioncode.backoffice.position.entity.Position;
 import com.orioncode.backoffice.position.repository.PositionRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -143,6 +145,26 @@ public class PositionService {
         );
 
         return new PageResponse<>(data, pagination, metadata);
+    }
+
+    @Transactional(readOnly = true)
+    public List<PositionResponseDTO> getPositionsForDropdown(String search) {
+        Specification<Position> spec = Specification.where(null);
+
+        // Si se proporciona search, buscar en name, description e id
+        if (search != null && !search.trim().isEmpty()) {
+            String searchPattern = "%" + search.toLowerCase() + "%";
+            spec = spec.and((root, query, cb) -> cb.or(
+                cb.like(cb.lower(root.get("name")), searchPattern)
+            ));
+        }
+
+        // Obtener solo los primeros 20 resultados ordenados por nombre
+        Pageable pageable = PageRequest.of(0, 20, Sort.by("name").ascending());
+        return positionRepository.findAll(spec, pageable)
+                .stream()
+                .map(this::convertToDTO)
+                .collect(Collectors.toList());
     }
 
     private PositionResponseDTO convertToDTO(Position position) {
