@@ -28,7 +28,7 @@ public class CollaboratorRequestDTO {
     private String positionId;
 
     @Size(max = 100, message = "El equipo no puede exceder 100 caracteres")
-    private String team;
+    private String teamId;
 
     private List<String> tags;
 }

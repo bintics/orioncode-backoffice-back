@@ -80,7 +80,7 @@ public class CollaboratorService {
         collaborator.setFirstName(requestDTO.getFirstName());
         collaborator.setLastName(requestDTO.getLastName());
         collaborator.setPosition(position);
-        collaborator.setTeam(requestDTO.getTeam());
+        collaborator.setTeam(requestDTO.getTeamId());
         collaborator.setTags(requestDTO.getTags() != null ? requestDTO.getTags() : new ArrayList<>());
 
         Collaborator savedCollaborator = collaboratorRepository.save(collaborator);
@@ -98,7 +98,7 @@ public class CollaboratorService {
         collaborator.setFirstName(requestDTO.getFirstName());
         collaborator.setLastName(requestDTO.getLastName());
         collaborator.setPosition(position);
-        collaborator.setTeam(requestDTO.getTeam());
+        collaborator.setTeam(requestDTO.getTeamId());
         collaborator.setTags(requestDTO.getTags() != null ? new ArrayList<>(requestDTO.getTags()) : new ArrayList<>());
 
         Collaborator updatedCollaborator = collaboratorRepository.save(collaborator);
