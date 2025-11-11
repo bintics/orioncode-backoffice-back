@@ -28,18 +28,25 @@ public class CollaboratorController {
     @GetMapping
     @Operation(
         summary = "Buscar colaboradores con paginación",
-        description = "Busca colaboradores con filtros opcionales (team, positionId, search) y soporte de paginación. " +
-                     "El parámetro 'search' busca en firstName, lastName e id. " +
+        description = "Busca colaboradores con filtro dinámico y paginación. " +
+                     "El parámetro 'filter' indica el campo de búsqueda (firstName, lastName, team, position, id). " +
+                     "El parámetro 'search' contiene el valor a buscar. " +
+                     "La búsqueda es parcial y case-insensitive. " +
                      "La paginación usa numeración desde 1 (página 1 es la primera)."
     )
     public ResponseEntity<PageResponse<CollaboratorSearchResponseDTO>> searchCollaborators(
-            @Parameter(description = "Filtrar por equipo") @RequestParam(required = false) String team,
-            @Parameter(description = "Filtrar por ID de posición") @RequestParam(required = false) String positionId,
-            @Parameter(description = "Búsqueda por nombre, apellido o ID") @RequestParam(required = false) String search,
-            @Parameter(description = "Número de página (inicia en 1)") @RequestParam(defaultValue = "1") int page,
-            @Parameter(description = "Tamaño de página") @RequestParam(defaultValue = "20") int size,
-            @Parameter(description = "Campo para ordenar") @RequestParam(defaultValue = "firstName") String sortBy,
-            @Parameter(description = "Dirección de ordenamiento (asc/desc)") @RequestParam(defaultValue = "asc") String sortDir
+            @Parameter(description = "Campo sobre el que buscar: firstName, lastName, team, position, id")
+            @RequestParam(required = false) String filter,
+            @Parameter(description = "Valor a buscar (búsqueda parcial, case-insensitive)")
+            @RequestParam(required = false) String search,
+            @Parameter(description = "Número de página (inicia en 1)")
+            @RequestParam(defaultValue = "1") int page,
+            @Parameter(description = "Tamaño de página")
+            @RequestParam(defaultValue = "20") int size,
+            @Parameter(description = "Campo para ordenar")
+            @RequestParam(defaultValue = "firstName") String sortBy,
+            @Parameter(description = "Dirección de ordenamiento (asc/desc)")
+            @RequestParam(defaultValue = "asc") String sortDir
     ) {
         Sort sort = sortDir.equalsIgnoreCase("desc")
             ? Sort.by(sortBy).descending()
@@ -47,7 +54,7 @@ public class CollaboratorController {
 
         // Convertir de 1-indexed a 0-indexed para Spring Data
         Pageable pageable = PageRequest.of(page - 1, size, sort);
-        PageResponse<CollaboratorSearchResponseDTO> result = collaboratorService.searchCollaboratorsSimple(team, positionId, search, pageable);
+        PageResponse<CollaboratorSearchResponseDTO> result = collaboratorService.searchCollaborators(filter, search, pageable);
 
         return ResponseEntity.ok(result);
     }

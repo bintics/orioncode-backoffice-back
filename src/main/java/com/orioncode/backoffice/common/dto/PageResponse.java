@@ -12,4 +12,12 @@ import java.util.List;
 public class PageResponse<T> {
     private List<T> data;
     private PaginationMetadata pagination;
+    private SearchMetadata metadata;
+
+    // Constructor sin metadata para compatibilidad
+    public PageResponse(List<T> data, PaginationMetadata pagination) {
+        this.data = data;
+        this.pagination = pagination;
+        this.metadata = null;
+    }
 }

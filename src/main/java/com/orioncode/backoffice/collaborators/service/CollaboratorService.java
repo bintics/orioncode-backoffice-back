@@ -3,6 +3,7 @@ package com.orioncode.backoffice.collaborators.service;
 import com.orioncode.backoffice.common.exception.ResourceNotFoundException;
 import com.orioncode.backoffice.common.dto.PageResponse;
 import com.orioncode.backoffice.common.dto.PaginationMetadata;
+import com.orioncode.backoffice.common.dto.SearchMetadata;
 import com.orioncode.backoffice.collaborators.dto.CollaboratorRequestDTO;
 import com.orioncode.backoffice.collaborators.dto.CollaboratorResponseDTO;
 import com.orioncode.backoffice.collaborators.dto.CollaboratorSearchResponseDTO;
@@ -113,48 +114,46 @@ public class CollaboratorService {
     }
 
     @Transactional(readOnly = true)
-    public Page<CollaboratorResponseDTO> searchCollaborators(String team, String positionId, String search, Pageable pageable) {
+    public PageResponse<CollaboratorSearchResponseDTO> searchCollaborators(
+            String filter, String search, Pageable pageable) {
+
         Specification<Collaborator> spec = Specification.where(null);
 
-        if (team != null && !team.trim().isEmpty()) {
-            spec = spec.and((root, query, cb) -> cb.equal(root.get("team"), team));
-        }
+        // Si se proporciona filter y search, aplicar filtro dinámico
+        if (filter != null && !filter.trim().isEmpty() && search != null && !search.trim().isEmpty()) {
+            String searchPattern = "%" + search.toLowerCase() + "%";
 
-        if (positionId != null && !positionId.trim().isEmpty()) {
-            spec = spec.and((root, query, cb) -> cb.equal(root.get("position").get("id"), positionId));
-        }
-
-        if (search != null && !search.trim().isEmpty()) {
+            spec = spec.and((root, query, cb) -> {
+                switch (filter.toLowerCase()) {
+                    case "firstname":
+                        return cb.like(cb.lower(root.get("firstName")), searchPattern);
+                    case "lastname":
+                        return cb.like(cb.lower(root.get("lastName")), searchPattern);
+                    case "team":
+                        return cb.like(cb.lower(root.get("team")), searchPattern);
+                    case "position":
+                        return cb.like(cb.lower(root.get("position").get("name")), searchPattern);
+                    case "id":
+                        return cb.like(cb.lower(root.get("id")), searchPattern);
+                    default:
+                        // Si el filter no es reconocido, buscar en todos los campos
+                        return cb.or(
+                            cb.like(cb.lower(root.get("firstName")), searchPattern),
+                            cb.like(cb.lower(root.get("lastName")), searchPattern),
+                            cb.like(cb.lower(root.get("team")), searchPattern),
+                            cb.like(cb.lower(root.get("position").get("name")), searchPattern),
+                            cb.like(cb.lower(root.get("id")), searchPattern)
+                        );
+                }
+            });
+        } else if (search != null && !search.trim().isEmpty()) {
+            // Si solo se proporciona search sin filter, buscar en todos los campos
             String searchPattern = "%" + search.toLowerCase() + "%";
             spec = spec.and((root, query, cb) -> cb.or(
                 cb.like(cb.lower(root.get("firstName")), searchPattern),
                 cb.like(cb.lower(root.get("lastName")), searchPattern),
-                cb.like(cb.lower(root.get("id")), searchPattern)
-            ));
-        }
-
-        return collaboratorRepository.findAll(spec, pageable).map(this::convertToDTO);
-    }
-
-    @Transactional(readOnly = true)
-    public PageResponse<CollaboratorSearchResponseDTO> searchCollaboratorsSimple(
-            String team, String positionId, String search, Pageable pageable) {
-
-        Specification<Collaborator> spec = Specification.where(null);
-
-        if (team != null && !team.trim().isEmpty()) {
-            spec = spec.and((root, query, cb) -> cb.equal(root.get("team"), team));
-        }
-
-        if (positionId != null && !positionId.trim().isEmpty()) {
-            spec = spec.and((root, query, cb) -> cb.equal(root.get("position").get("id"), positionId));
-        }
-
-        if (search != null && !search.trim().isEmpty()) {
-            String searchPattern = "%" + search.toLowerCase() + "%";
-            spec = spec.and((root, query, cb) -> cb.or(
-                cb.like(cb.lower(root.get("firstName")), searchPattern),
-                cb.like(cb.lower(root.get("lastName")), searchPattern),
+                cb.like(cb.lower(root.get("team")), searchPattern),
+                cb.like(cb.lower(root.get("position").get("name")), searchPattern),
                 cb.like(cb.lower(root.get("id")), searchPattern)
             ));
         }
@@ -172,7 +171,12 @@ public class CollaboratorService {
                 page.getTotalPages()
         );
 
-        return new PageResponse<>(data, pagination);
+        // Crear metadata con los filtros disponibles
+        SearchMetadata metadata = new SearchMetadata(
+                List.of("firstName", "lastName", "team", "position", "id")
+        );
+
+        return new PageResponse<>(data, pagination, metadata);
     }
 
     private CollaboratorResponseDTO convertToDTO(Collaborator collaborator) {
