@@ -43,11 +43,47 @@ Esta arquitectura facilita la promoción de cada módulo a microservicio indepen
 - **Java 17**
 - **Spring Boot 3.1.5**
 - **Spring Data JPA**
-- **MySQL**
+- **MySQL** (producción)
+- **H2 Database** (desarrollo y tests)
 - **Maven**
 - **Lombok**
 - **SpringDoc OpenAPI (Swagger)**
-- **H2 Database** (para tests)
+
+## 🚀 Inicio Rápido
+
+### Opción 1: Modo Desarrollo (Recomendado - No requiere MySQL)
+
+```bash
+# Usando el script
+./run-dev.sh
+
+# O directamente con Maven
+mvn spring-boot:run -Dspring-boot.run.profiles=dev
+```
+
+Esto iniciará la aplicación con H2 en memoria y cargará datos de prueba automáticamente.
+
+**URLs disponibles:**
+- API: http://localhost:8080/api
+- Swagger UI: http://localhost:8080/api/swagger-ui.html
+- H2 Console: http://localhost:8080/api/h2-console
+
+### Opción 2: Modo Producción (Requiere MySQL)
+
+1. Asegúrate de tener MySQL corriendo
+2. Ejecuta:
+```bash
+mvn spring-boot:run
+```
+
+Para más detalles, consulta [COMO_EJECUTAR.md](COMO_EJECUTAR.md)
+
+## 📚 Documentación Adicional
+
+- [Guía de Ejecución Completa](COMO_EJECUTAR.md)
+- [API de Búsqueda de Colaboradores](COLLABORATORS_SEARCH_API.md)
+- [Guía de Integración Frontend](FRONTEND_INTEGRATION_GUIDE.md)
+- [API de Teams](TEAMS_CRUD_README.md)
 
 ## 📦 Requisitos Previos
 

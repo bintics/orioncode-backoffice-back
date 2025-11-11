@@ -1,16 +1,21 @@
 package com.orioncode.backoffice.team.service;
 
 import com.orioncode.backoffice.common.exception.ResourceNotFoundException;
+import com.orioncode.backoffice.common.dto.PageResponse;
+import com.orioncode.backoffice.common.dto.PaginationMetadata;
+import com.orioncode.backoffice.common.dto.SearchMetadata;
 import com.orioncode.backoffice.team.dto.TeamRequestDTO;
 import com.orioncode.backoffice.team.dto.TeamResponseDTO;
 import com.orioncode.backoffice.team.entity.Team;
 import com.orioncode.backoffice.team.repository.TeamRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
@@ -90,6 +95,64 @@ public class TeamService {
         teamRepository.deleteById(id);
     }
 
+    @Transactional(readOnly = true)
+    public PageResponse<TeamResponseDTO> searchTeams(
+            String filter, String search, Pageable pageable) {
+
+        Specification<Team> spec = Specification.where(null);
+
+        // Si se proporciona filter y search, aplicar filtro dinámico
+        if (filter != null && !filter.trim().isEmpty() && search != null && !search.trim().isEmpty()) {
+            String searchPattern = "%" + search.toLowerCase() + "%";
+
+            spec = spec.and((root, query, cb) -> {
+                switch (filter.toLowerCase()) {
+                    case "name":
+                        return cb.like(cb.lower(root.get("name")), searchPattern);
+                    case "description":
+                        return cb.like(cb.lower(root.get("description")), searchPattern);
+                    case "id":
+                        return cb.like(cb.lower(root.get("id")), searchPattern);
+                    default:
+                        // Si el filter no es reconocido, buscar en todos los campos
+                        return cb.or(
+                            cb.like(cb.lower(root.get("name")), searchPattern),
+                            cb.like(cb.lower(root.get("description")), searchPattern),
+                            cb.like(cb.lower(root.get("id")), searchPattern)
+                        );
+                }
+            });
+        } else if (search != null && !search.trim().isEmpty()) {
+            // Si solo se proporciona search sin filter, buscar en todos los campos
+            String searchPattern = "%" + search.toLowerCase() + "%";
+            spec = spec.and((root, query, cb) -> cb.or(
+                cb.like(cb.lower(root.get("name")), searchPattern),
+                cb.like(cb.lower(root.get("description")), searchPattern),
+                cb.like(cb.lower(root.get("id")), searchPattern)
+            ));
+        }
+
+        Page<Team> page = teamRepository.findAll(spec, pageable);
+
+        List<TeamResponseDTO> data = page.getContent().stream()
+                .map(this::convertToResponseDTO)
+                .collect(Collectors.toList());
+
+        PaginationMetadata pagination = new PaginationMetadata(
+                page.getNumber() + 1, // Convertir de 0-indexed a 1-indexed
+                page.getSize(),
+                page.getTotalElements(),
+                page.getTotalPages()
+        );
+
+        // Crear metadata con los filtros disponibles
+        SearchMetadata metadata = new SearchMetadata(
+                List.of("name", "description", "id")
+        );
+
+        return new PageResponse<>(data, pagination, metadata);
+    }
+
     private TeamResponseDTO convertToResponseDTO(Team team) {
         TeamResponseDTO dto = new TeamResponseDTO();
         dto.setId(team.getId());
@@ -100,4 +163,3 @@ public class TeamService {
         return dto;
     }
 }
-
