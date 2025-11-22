@@ -4,13 +4,16 @@ import com.orioncode.backoffice.common.exception.ResourceNotFoundException;
 import com.orioncode.backoffice.common.dto.PageResponse;
 import com.orioncode.backoffice.common.dto.PaginationMetadata;
 import com.orioncode.backoffice.common.dto.SearchMetadata;
+import com.orioncode.backoffice.position.entity.Position;
 import com.orioncode.backoffice.team.dto.TeamRequestDTO;
 import com.orioncode.backoffice.team.dto.TeamResponseDTO;
 import com.orioncode.backoffice.team.entity.Team;
 import com.orioncode.backoffice.team.repository.TeamRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -161,5 +164,30 @@ public class TeamService {
         dto.setCreatedAt(team.getCreatedAt());
         dto.setUpdatedAt(team.getUpdatedAt());
         return dto;
+    }
+
+    public List<TeamResponseDTO> getTeamsForDropdown(String search) {
+        Specification<Team> spec = Specification.where(null);
+
+        // Si se proporciona search, buscar en name, description e id
+        if (search != null && !search.trim().isEmpty()) {
+            String searchPattern = "%" + search.toLowerCase() + "%";
+            spec = spec.and((root, query, cb) -> cb.or(
+                    cb.like(cb.lower(root.get("name")), searchPattern)
+            ));
+        }
+
+        // Obtener solo los primeros 20 resultados ordenados por nombre
+        Pageable pageable = PageRequest.of(0, 20, Sort.by("name").ascending());
+        return teamRepository.findAll(spec, pageable)
+                .stream()
+                .map(t -> new TeamResponseDTO(
+                        t.getId(),
+                        t.getName(),
+                        t.getDescription(),
+                        t.getCreatedAt(),
+                        t.getUpdatedAt()
+                ))
+                .collect(Collectors.toList());
     }
 }
