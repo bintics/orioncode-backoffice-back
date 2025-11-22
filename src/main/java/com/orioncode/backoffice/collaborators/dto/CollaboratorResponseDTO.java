@@ -1,6 +1,5 @@
 package com.orioncode.backoffice.collaborators.dto;
 
-import com.orioncode.backoffice.position.dto.PositionResponseDTO;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -16,8 +15,8 @@ public class CollaboratorResponseDTO {
     private String id;
     private String firstName;
     private String lastName;
-    private PositionResponseDTO position;
-    private String team;
+    private String positionId;
+    private String teamId;
     private List<String> tags;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;

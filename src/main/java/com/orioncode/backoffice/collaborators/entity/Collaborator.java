@@ -26,12 +26,11 @@ public class Collaborator {
     @Column(name = "last_name", nullable = false, length = 100)
     private String lastName;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "position_id", nullable = false)
-    private Position position;
+    @Column(name = "position_id", nullable = false)
+    private String positionId;
 
-    @Column(name = "team", length = 100)
-    private String team;
+    @Column(name = "team_id", nullable = false)
+    private String teamId;
 
     @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name = "collaborator_tags", joinColumns = @JoinColumn(name = "collaborator_id"))

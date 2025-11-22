@@ -9,6 +9,5 @@ import java.util.List;
 
 @Repository
 public interface CollaboratorRepository extends JpaRepository<Collaborator, String>, JpaSpecificationExecutor<Collaborator> {
-    List<Collaborator> findByTeam(String team);
     List<Collaborator> findByPositionId(String positionId);
 }

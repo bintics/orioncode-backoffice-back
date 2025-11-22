@@ -14,8 +14,8 @@ public class CollaboratorSearchResponseDTO {
     private String id;
     private String firstName;
     private String lastName;
-    private String position;
-    private SimpleTeamDTO team;
+    private String positionId;
+    private String teamId;
     private List<String> tags;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;

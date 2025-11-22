@@ -48,13 +48,6 @@ public class CollaboratorService {
     }
 
     @Transactional(readOnly = true)
-    public List<CollaboratorResponseDTO> getCollaboratorsByTeam(String team) {
-        return collaboratorRepository.findByTeam(team).stream()
-                .map(this::convertToDTO)
-                .collect(Collectors.toList());
-    }
-
-    @Transactional(readOnly = true)
     public List<CollaboratorResponseDTO> getCollaboratorsByPosition(String positionId) {
         return collaboratorRepository.findByPositionId(positionId).stream()
                 .map(this::convertToDTO)
@@ -79,8 +72,8 @@ public class CollaboratorService {
         collaborator.setId(collaboratorId);
         collaborator.setFirstName(requestDTO.getFirstName());
         collaborator.setLastName(requestDTO.getLastName());
-        collaborator.setPosition(position);
-        collaborator.setTeam(requestDTO.getTeamId());
+        collaborator.setPositionId(position.getId());
+        collaborator.setTeamId(requestDTO.getTeamId());
         collaborator.setTags(requestDTO.getTags() != null ? requestDTO.getTags() : new ArrayList<>());
 
         Collaborator savedCollaborator = collaboratorRepository.save(collaborator);
@@ -97,8 +90,8 @@ public class CollaboratorService {
 
         collaborator.setFirstName(requestDTO.getFirstName());
         collaborator.setLastName(requestDTO.getLastName());
-        collaborator.setPosition(position);
-        collaborator.setTeam(requestDTO.getTeamId());
+        collaborator.setPositionId(position.getId());
+        collaborator.setTeamId(requestDTO.getTeamId());
         collaborator.setTags(requestDTO.getTags() != null ? new ArrayList<>(requestDTO.getTags()) : new ArrayList<>());
 
         Collaborator updatedCollaborator = collaboratorRepository.save(collaborator);
@@ -180,20 +173,12 @@ public class CollaboratorService {
     }
 
     private CollaboratorResponseDTO convertToDTO(Collaborator collaborator) {
-        PositionResponseDTO positionDTO = new PositionResponseDTO(
-                collaborator.getPosition().getId(),
-                collaborator.getPosition().getName(),
-                collaborator.getPosition().getDescription(),
-                collaborator.getPosition().getCreatedAt(),
-                collaborator.getPosition().getUpdatedAt()
-        );
-
         return new CollaboratorResponseDTO(
                 collaborator.getId(),
                 collaborator.getFirstName(),
                 collaborator.getLastName(),
-                positionDTO,
-                collaborator.getTeam(),
+                collaborator.getPositionId(),
+                collaborator.getTeamId(),
                 collaborator.getTags(),
                 collaborator.getCreatedAt(),
                 collaborator.getUpdatedAt()
@@ -201,20 +186,12 @@ public class CollaboratorService {
     }
 
     private CollaboratorSearchResponseDTO convertToSearchDTO(Collaborator collaborator) {
-        // Obtener información del equipo si existe
-        SimpleTeamDTO teamDTO = null;
-        if (collaborator.getTeam() != null && !collaborator.getTeam().trim().isEmpty()) {
-            teamDTO = teamRepository.findByName(collaborator.getTeam())
-                    .map(team -> new SimpleTeamDTO(team.getId(), team.getName()))
-                    .orElse(new SimpleTeamDTO(null, collaborator.getTeam()));
-        }
-
         return new CollaboratorSearchResponseDTO(
                 collaborator.getId(),
                 collaborator.getFirstName(),
                 collaborator.getLastName(),
-                collaborator.getPosition().getName(),
-                teamDTO,
+                collaborator.getPositionId(),
+                collaborator.getTeamId(),
                 collaborator.getTags(),
                 collaborator.getCreatedAt(),
                 collaborator.getUpdatedAt()
