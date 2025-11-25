@@ -133,8 +133,8 @@ public class CollaboratorService {
                         return cb.or(
                             cb.like(cb.lower(root.get("firstName")), searchPattern),
                             cb.like(cb.lower(root.get("lastName")), searchPattern),
-                            cb.like(cb.lower(root.get("team")), searchPattern),
-                            cb.like(cb.lower(root.get("position").get("name")), searchPattern),
+                            cb.like(cb.lower(root.get("teamId")), searchPattern),
+                            cb.like(cb.lower(root.get("positionId")), searchPattern),
                             cb.like(cb.lower(root.get("id")), searchPattern)
                         );
                 }
@@ -145,8 +145,8 @@ public class CollaboratorService {
             spec = spec.and((root, query, cb) -> cb.or(
                 cb.like(cb.lower(root.get("firstName")), searchPattern),
                 cb.like(cb.lower(root.get("lastName")), searchPattern),
-                cb.like(cb.lower(root.get("team")), searchPattern),
-                cb.like(cb.lower(root.get("position").get("name")), searchPattern),
+                cb.like(cb.lower(root.get("teamId")), searchPattern),
+                cb.like(cb.lower(root.get("positionId")), searchPattern),
                 cb.like(cb.lower(root.get("id")), searchPattern)
             ));
         }
@@ -166,7 +166,7 @@ public class CollaboratorService {
 
         // Crear metadata con los filtros disponibles
         SearchMetadata metadata = new SearchMetadata(
-                List.of("firstName", "lastName", "team", "position", "id")
+                List.of("firstName", "lastName")
         );
 
         return new PageResponse<>(data, pagination, metadata);
