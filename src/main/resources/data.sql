@@ -261,3 +261,20 @@ INSERT INTO projects (name, description, status, type, owner_id, created_at, upd
 ('Blockchain Integration', 'Integración con tecnología blockchain', 'DRAFT', 'INTEGRATION', 'team-014', NOW(), NOW()),
 ('Video Streaming Platform', 'Plataforma de streaming de video bajo demanda', 'ACTIVE', 'WEB_APPLICATION', 'team-015', NOW(), NOW());
 
+-- =====================================================
+-- INSERTAR TIPOS DE PROYECTO (11 tipos predefinidos)
+-- =====================================================
+
+INSERT INTO project_types (id, name, description, created_at, updated_at) VALUES
+('pt-001', 'WEB_APPLICATION', 'Aplicaciones web tradicionales, portales, dashboards y sistemas web interactivos', NOW(), NOW()),
+('pt-002', 'MOBILE_APP', 'Aplicaciones móviles nativas o híbridas para iOS, Android o multiplataforma', NOW(), NOW()),
+('pt-003', 'MICROSERVICE', 'Servicios independientes que forman parte de una arquitectura de microservicios', NOW(), NOW()),
+('pt-004', 'INFRASTRUCTURE', 'Proyectos relacionados con infraestructura, DevOps y plataforma', NOW(), NOW()),
+('pt-005', 'DATA_ENGINEERING', 'Proyectos de ingeniería de datos, ETL, data warehouses y análisis', NOW(), NOW()),
+('pt-006', 'MACHINE_LEARNING', 'Proyectos de inteligencia artificial, machine learning y data science', NOW(), NOW()),
+('pt-007', 'SECURITY', 'Proyectos enfocados en seguridad, auditoría y cumplimiento', NOW(), NOW()),
+('pt-008', 'INTEGRATION', 'Proyectos de integración entre sistemas, APIs y plataformas externas', NOW(), NOW()),
+('pt-009', 'TOOLING', 'Herramientas internas, frameworks y utilidades para desarrolladores', NOW(), NOW()),
+('pt-010', 'IOT', 'Proyectos relacionados con Internet of Things y dispositivos conectados', NOW(), NOW()),
+('pt-011', 'ARCHITECTURE', 'Proyectos de diseño arquitectónico, migraciones y modernizaciones', NOW(), NOW());
+
