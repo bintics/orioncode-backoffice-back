@@ -110,6 +110,7 @@ INSERT INTO collaborators (id, first_name, last_name, position_id, team_id, crea
 
 -- Nuevos colaboradores (coll-0041 a coll-0140)
 INSERT INTO collaborators (id, first_name, last_name, position_id, team_id, created_at, updated_at) VALUES
+('15db0265-9c18-4d74-9d95-a66cfa384715','Federico','Farias','pos-004','team-001',NOW(),NOW()),
 ('coll-0041','Juan','Pérez','pos-001','team-011',NOW(),NOW()),
 ('coll-0042','María','García','pos-001','team-012',NOW(),NOW()),
 ('coll-0043','Pedro','López','pos-001','team-013',NOW(),NOW()),
