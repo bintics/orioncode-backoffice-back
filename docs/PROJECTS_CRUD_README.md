@@ -7,7 +7,7 @@ CRUD completo para la gestión de proyectos en el IDP (Internal Developer Platfo
 ## Estructura del Proyecto
 
 ```
-com.orioncode.frontoffice.projectmanagement/
+com.orioncode.frontoffice.projects/
 ├── controller/
 │   └── ProjectController.java
 ├── dto/

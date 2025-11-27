@@ -1,4 +1,4 @@
-package com.orioncode.frontoffice.projectmanagement.dto;
+package com.orioncode.frontoffice.projects.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

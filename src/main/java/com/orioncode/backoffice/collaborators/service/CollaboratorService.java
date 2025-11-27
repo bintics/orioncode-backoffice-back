@@ -113,10 +113,10 @@ public class CollaboratorService {
                         return cb.like(cb.lower(root.get("firstName")), searchPattern);
                     case "lastname":
                         return cb.like(cb.lower(root.get("lastName")), searchPattern);
-                    case "team":
-                        return cb.like(cb.lower(root.get("team")), searchPattern);
-                    case "position":
-                        return cb.like(cb.lower(root.get("position").get("name")), searchPattern);
+                    case "teamid":
+                        return cb.like(cb.lower(root.get("teamId")), searchPattern);
+                    case "positionid":
+                        return cb.like(cb.lower(root.get("positionId").get("name")), searchPattern);
                     case "id":
                         return cb.like(cb.lower(root.get("id")), searchPattern);
                     default:
@@ -157,7 +157,7 @@ public class CollaboratorService {
 
         // Crear metadata con los filtros disponibles
         SearchMetadata metadata = new SearchMetadata(
-                List.of("firstName", "lastName")
+                List.of("firstName", "lastName", "teamId", "positionId")
         );
 
         return new PageResponse<>(data, pagination, metadata);
