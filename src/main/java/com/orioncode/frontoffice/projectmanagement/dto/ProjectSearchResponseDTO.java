@@ -15,6 +15,7 @@ public class ProjectSearchResponseDTO {
     private String name;
     private String description;
     private String status;
+    private String type;
     private String ownerId;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;

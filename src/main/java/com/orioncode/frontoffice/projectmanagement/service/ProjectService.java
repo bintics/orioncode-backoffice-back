@@ -73,6 +73,7 @@ public class ProjectService {
         project.setName(requestDTO.getName());
         project.setDescription(requestDTO.getDescription());
         project.setStatus(requestDTO.getStatus());
+        project.setType(requestDTO.getType());
         project.setOwnerId(requestDTO.getOwnerId());
 
         Project updatedProject = projectRepository.save(project);
@@ -139,7 +140,7 @@ public class ProjectService {
         );
 
         SearchMetadata metadata = new SearchMetadata(
-                List.of("name", "description", "status", "ownerId")
+                List.of("name", "description", "status", "type", "ownerId")
         );
 
         return new PageResponse<>(data, pagination, metadata);
@@ -151,6 +152,7 @@ public class ProjectService {
                 project.getName(),
                 project.getDescription(),
                 project.getStatus(),
+                project.getType(),
                 project.getOwnerId(),
                 project.getCreatedAt(),
                 project.getUpdatedAt()
@@ -163,6 +165,7 @@ public class ProjectService {
                 project.getName(),
                 project.getDescription(),
                 project.getStatus(),
+                project.getType(),
                 project.getOwnerId(),
                 project.getCreatedAt(),
                 project.getUpdatedAt()

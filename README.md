@@ -76,14 +76,14 @@ Esto iniciará la aplicación con H2 en memoria y cargará datos de prueba autom
 mvn spring-boot:run
 ```
 
-Para más detalles, consulta [COMO_EJECUTAR.md](COMO_EJECUTAR.md)
+Para más detalles, consulta [COMO_EJECUTAR.md](docs/COMO_EJECUTAR.md)
 
 ## 📚 Documentación Adicional
 
-- [Guía de Ejecución Completa](COMO_EJECUTAR.md)
-- [API de Búsqueda de Colaboradores](COLLABORATORS_SEARCH_API.md)
-- [Guía de Integración Frontend](FRONTEND_INTEGRATION_GUIDE.md)
-- [API de Teams](TEAMS_CRUD_README.md)
+- [Guía de Ejecución Completa](docs/COMO_EJECUTAR.md)
+- [API de Búsqueda de Colaboradores](docs/COLLABORATORS_SEARCH_API.md)
+- [Guía de Integración Frontend](docs/FRONTEND_INTEGRATION_GUIDE.md)
+- [API de Teams](docs/TEAMS_CRUD_README.md)
 
 ## 📦 Requisitos Previos
 

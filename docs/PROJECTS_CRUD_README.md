@@ -205,6 +205,7 @@ curl -X DELETE "http://localhost:8080/projects/1"
 - `name`: Obligatorio, entre 2 y 200 caracteres
 - `description`: Opcional, máximo 1000 caracteres
 - `status`: Obligatorio, máximo 50 caracteres
+- `type`: Obligatorio, máximo 50 caracteres (ver tipos disponibles en PROJECT_TYPES.md)
 - `ownerId`: Obligatorio, máximo 100 caracteres
 
 ## Estados del Proyecto

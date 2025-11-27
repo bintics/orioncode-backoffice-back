@@ -42,6 +42,7 @@ curl -X PUT "$BASE_URL/1" \
     "name": "E-Commerce Platform Updated",
     "description": "Plataforma actualizada",
     "status": "ACTIVE",
+    "type": "WEB_APPLICATION",
     "ownerId": "team-001"
   }' | jq .
 

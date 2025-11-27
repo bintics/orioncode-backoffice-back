@@ -22,6 +22,10 @@ public class ProjectRequestDTO {
     @Size(max = 50, message = "El estado no puede exceder 50 caracteres")
     private String status;
 
+    @NotBlank(message = "El tipo de proyecto es requerido")
+    @Size(max = 50, message = "El tipo no puede exceder 50 caracteres")
+    private String type;
+
     @NotBlank(message = "El ID del owner es requerido")
     @Size(max = 100, message = "El ID del owner no puede exceder 100 caracteres")
     private String ownerId;

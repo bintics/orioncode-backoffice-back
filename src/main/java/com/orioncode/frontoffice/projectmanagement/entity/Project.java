@@ -27,6 +27,9 @@ public class Project {
     @Column(nullable = false, length = 50)
     private String status;
 
+    @Column(nullable = false, length = 50)
+    private String type;
+
     // Se asume que ownerId es un String que referencia al ID del equipo de desarrollo
     @Column(name = "owner_id", nullable = false, length = 100)
     private String ownerId;
