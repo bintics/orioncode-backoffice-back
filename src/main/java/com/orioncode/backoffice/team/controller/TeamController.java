@@ -1,6 +1,6 @@
 package com.orioncode.backoffice.team.controller;
 
-import com.orioncode.backoffice.common.dto.PageResponse;
+import com.orioncode.shared.dto.PageResponse;
 import com.orioncode.backoffice.team.dto.TeamRequestDTO;
 import com.orioncode.backoffice.team.dto.TeamResponseDTO;
 import com.orioncode.backoffice.team.service.TeamService;
@@ -14,6 +14,8 @@ import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 
 @RestController
@@ -56,6 +58,16 @@ public class TeamController {
         PageResponse<TeamResponseDTO> result = teamService.searchTeams(filter, search, pageable);
 
         return ResponseEntity.ok(result);
+    }
+
+    @GetMapping(headers = "X-dropdown")
+    @Operation(summary = "Obtener equipos para listas desplegables")
+    public ResponseEntity<List<TeamResponseDTO>> getTeamsForDropdown(
+            @Parameter(description = "Valor a buscar (búsqueda parcial, case-insensitive)")
+            @RequestParam(required = false) String search
+    ) {
+        List<TeamResponseDTO> teams = teamService.getTeamsForDropdown(search);
+        return ResponseEntity.ok(teams);
     }
 
     @GetMapping("/{id}")

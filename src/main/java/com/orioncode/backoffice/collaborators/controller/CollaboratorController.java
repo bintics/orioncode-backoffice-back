@@ -4,7 +4,7 @@ import com.orioncode.backoffice.collaborators.dto.CollaboratorRequestDTO;
 import com.orioncode.backoffice.collaborators.dto.CollaboratorResponseDTO;
 import com.orioncode.backoffice.collaborators.dto.CollaboratorSearchResponseDTO;
 import com.orioncode.backoffice.collaborators.service.CollaboratorService;
-import com.orioncode.backoffice.common.dto.PageResponse;
+import com.orioncode.shared.dto.PageResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;

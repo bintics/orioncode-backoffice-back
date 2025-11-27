@@ -1,16 +1,14 @@
 package com.orioncode.backoffice.collaborators.service;
 
-import com.orioncode.backoffice.common.exception.ResourceNotFoundException;
-import com.orioncode.backoffice.common.dto.PageResponse;
-import com.orioncode.backoffice.common.dto.PaginationMetadata;
-import com.orioncode.backoffice.common.dto.SearchMetadata;
+import com.orioncode.shared.exception.ResourceNotFoundException;
+import com.orioncode.shared.dto.PageResponse;
+import com.orioncode.shared.dto.PaginationMetadata;
+import com.orioncode.shared.dto.SearchMetadata;
 import com.orioncode.backoffice.collaborators.dto.CollaboratorRequestDTO;
 import com.orioncode.backoffice.collaborators.dto.CollaboratorResponseDTO;
 import com.orioncode.backoffice.collaborators.dto.CollaboratorSearchResponseDTO;
-import com.orioncode.backoffice.collaborators.dto.SimpleTeamDTO;
 import com.orioncode.backoffice.collaborators.entity.Collaborator;
 import com.orioncode.backoffice.collaborators.repository.CollaboratorRepository;
-import com.orioncode.backoffice.position.dto.PositionResponseDTO;
 import com.orioncode.backoffice.position.entity.Position;
 import com.orioncode.backoffice.position.repository.PositionRepository;
 import com.orioncode.backoffice.team.repository.TeamRepository;
@@ -47,20 +45,6 @@ public class CollaboratorService {
         return convertToDTO(collaborator);
     }
 
-    @Transactional(readOnly = true)
-    public List<CollaboratorResponseDTO> getCollaboratorsByTeam(String team) {
-        return collaboratorRepository.findByTeam(team).stream()
-                .map(this::convertToDTO)
-                .collect(Collectors.toList());
-    }
-
-    @Transactional(readOnly = true)
-    public List<CollaboratorResponseDTO> getCollaboratorsByPosition(String positionId) {
-        return collaboratorRepository.findByPositionId(positionId).stream()
-                .map(this::convertToDTO)
-                .collect(Collectors.toList());
-    }
-
     @Transactional
     public CollaboratorResponseDTO createCollaborator(CollaboratorRequestDTO requestDTO) {
         String collaboratorId = requestDTO.getId();
@@ -79,8 +63,8 @@ public class CollaboratorService {
         collaborator.setId(collaboratorId);
         collaborator.setFirstName(requestDTO.getFirstName());
         collaborator.setLastName(requestDTO.getLastName());
-        collaborator.setPosition(position);
-        collaborator.setTeam(requestDTO.getTeam());
+        collaborator.setPositionId(position.getId());
+        collaborator.setTeamId(requestDTO.getTeamId());
         collaborator.setTags(requestDTO.getTags() != null ? requestDTO.getTags() : new ArrayList<>());
 
         Collaborator savedCollaborator = collaboratorRepository.save(collaborator);
@@ -97,8 +81,8 @@ public class CollaboratorService {
 
         collaborator.setFirstName(requestDTO.getFirstName());
         collaborator.setLastName(requestDTO.getLastName());
-        collaborator.setPosition(position);
-        collaborator.setTeam(requestDTO.getTeam());
+        collaborator.setPositionId(position.getId());
+        collaborator.setTeamId(requestDTO.getTeamId());
         collaborator.setTags(requestDTO.getTags() != null ? new ArrayList<>(requestDTO.getTags()) : new ArrayList<>());
 
         Collaborator updatedCollaborator = collaboratorRepository.save(collaborator);
@@ -140,8 +124,8 @@ public class CollaboratorService {
                         return cb.or(
                             cb.like(cb.lower(root.get("firstName")), searchPattern),
                             cb.like(cb.lower(root.get("lastName")), searchPattern),
-                            cb.like(cb.lower(root.get("team")), searchPattern),
-                            cb.like(cb.lower(root.get("position").get("name")), searchPattern),
+                            cb.like(cb.lower(root.get("teamId")), searchPattern),
+                            cb.like(cb.lower(root.get("positionId")), searchPattern),
                             cb.like(cb.lower(root.get("id")), searchPattern)
                         );
                 }
@@ -152,8 +136,8 @@ public class CollaboratorService {
             spec = spec.and((root, query, cb) -> cb.or(
                 cb.like(cb.lower(root.get("firstName")), searchPattern),
                 cb.like(cb.lower(root.get("lastName")), searchPattern),
-                cb.like(cb.lower(root.get("team")), searchPattern),
-                cb.like(cb.lower(root.get("position").get("name")), searchPattern),
+                cb.like(cb.lower(root.get("teamId")), searchPattern),
+                cb.like(cb.lower(root.get("positionId")), searchPattern),
                 cb.like(cb.lower(root.get("id")), searchPattern)
             ));
         }
@@ -173,27 +157,19 @@ public class CollaboratorService {
 
         // Crear metadata con los filtros disponibles
         SearchMetadata metadata = new SearchMetadata(
-                List.of("firstName", "lastName", "team", "position", "id")
+                List.of("firstName", "lastName")
         );
 
         return new PageResponse<>(data, pagination, metadata);
     }
 
     private CollaboratorResponseDTO convertToDTO(Collaborator collaborator) {
-        PositionResponseDTO positionDTO = new PositionResponseDTO(
-                collaborator.getPosition().getId(),
-                collaborator.getPosition().getName(),
-                collaborator.getPosition().getDescription(),
-                collaborator.getPosition().getCreatedAt(),
-                collaborator.getPosition().getUpdatedAt()
-        );
-
         return new CollaboratorResponseDTO(
                 collaborator.getId(),
                 collaborator.getFirstName(),
                 collaborator.getLastName(),
-                positionDTO,
-                collaborator.getTeam(),
+                collaborator.getPositionId(),
+                collaborator.getTeamId(),
                 collaborator.getTags(),
                 collaborator.getCreatedAt(),
                 collaborator.getUpdatedAt()
@@ -201,20 +177,12 @@ public class CollaboratorService {
     }
 
     private CollaboratorSearchResponseDTO convertToSearchDTO(Collaborator collaborator) {
-        // Obtener información del equipo si existe
-        SimpleTeamDTO teamDTO = null;
-        if (collaborator.getTeam() != null && !collaborator.getTeam().trim().isEmpty()) {
-            teamDTO = teamRepository.findByName(collaborator.getTeam())
-                    .map(team -> new SimpleTeamDTO(team.getId(), team.getName()))
-                    .orElse(new SimpleTeamDTO(null, collaborator.getTeam()));
-        }
-
         return new CollaboratorSearchResponseDTO(
                 collaborator.getId(),
                 collaborator.getFirstName(),
                 collaborator.getLastName(),
-                collaborator.getPosition().getName(),
-                teamDTO,
+                collaborator.getPositionId(),
+                collaborator.getTeamId(),
                 collaborator.getTags(),
                 collaborator.getCreatedAt(),
                 collaborator.getUpdatedAt()

@@ -1,4 +1,4 @@
-package com.orioncode.backoffice.common.exception;
+package com.orioncode.shared.exception;
 
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;

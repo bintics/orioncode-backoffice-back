@@ -1,4 +1,4 @@
-package com.orioncode.backoffice.common.dto;
+package com.orioncode.shared.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
