@@ -229,7 +229,7 @@ INSERT INTO collaborator_tags (collaborator_id, tag) VALUES
 -- INSERTAR PROYECTOS (30 proyectos de ejemplo)
 -- =====================================================
 
-INSERT INTO projects (name, description, status, type, owner_id, created_at, updated_at) VALUES
+INSERT INTO projects (name, description, status, type_id, owner_id, created_at, updated_at) VALUES
 ('E-Commerce Platform', 'Plataforma de comercio electrónico escalable con integración de pagos', 'ACTIVE', 'WEB_APPLICATION', 'team-001', NOW(), NOW()),
 ('Customer Portal', 'Portal web para gestión de clientes y autoservicio', 'ACTIVE', 'WEB_APPLICATION', 'team-002', NOW(), NOW()),
 ('Mobile Banking App', 'Aplicación móvil para operaciones bancarias', 'ACTIVE', 'MOBILE_APP', 'team-003', NOW(), NOW()),

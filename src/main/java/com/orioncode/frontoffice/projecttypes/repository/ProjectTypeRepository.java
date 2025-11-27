@@ -1,6 +1,6 @@
-package com.orioncode.frontoffice.projectmanagement.repository;
+package com.orioncode.frontoffice.projecttypes.repository;
 
-import com.orioncode.frontoffice.projectmanagement.entity.ProjectType;
+import com.orioncode.frontoffice.projecttypes.entity.ProjectType;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.stereotype.Repository;

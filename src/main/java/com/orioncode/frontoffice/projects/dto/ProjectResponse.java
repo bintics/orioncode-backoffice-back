@@ -15,7 +15,7 @@ public class ProjectResponse {
     private String name;
     private String description;
     private String status;
-    private String type;
+    private String typeId;
     private String ownerId;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;

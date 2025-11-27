@@ -1,14 +1,14 @@
-package com.orioncode.frontoffice.projectmanagement.service;
+package com.orioncode.frontoffice.projecttypes.service;
 
 import com.orioncode.shared.exception.ResourceNotFoundException;
 import com.orioncode.shared.dto.PageResponse;
 import com.orioncode.shared.dto.PaginationMetadata;
 import com.orioncode.shared.dto.SearchMetadata;
-import com.orioncode.frontoffice.projectmanagement.dto.ProjectTypeRequestDTO;
-import com.orioncode.frontoffice.projectmanagement.dto.ProjectTypeResponseDTO;
-import com.orioncode.frontoffice.projectmanagement.dto.ProjectTypeSearchResponseDTO;
-import com.orioncode.frontoffice.projectmanagement.entity.ProjectType;
-import com.orioncode.frontoffice.projectmanagement.repository.ProjectTypeRepository;
+import com.orioncode.frontoffice.projecttypes.dto.ProjectTypeRequestDTO;
+import com.orioncode.frontoffice.projecttypes.dto.ProjectTypeResponseDTO;
+import com.orioncode.frontoffice.projecttypes.dto.ProjectTypeSearchResponseDTO;
+import com.orioncode.frontoffice.projecttypes.entity.ProjectType;
+import com.orioncode.frontoffice.projecttypes.repository.ProjectTypeRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

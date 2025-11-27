@@ -73,7 +73,7 @@ public class ProjectService {
         project.setName(requestDTO.getName());
         project.setDescription(requestDTO.getDescription());
         project.setStatus(requestDTO.getStatus());
-        project.setType(requestDTO.getType());
+        project.setTypeId(requestDTO.getTypeId());
         project.setOwnerId(requestDTO.getOwnerId());
 
         Project updatedProject = projectRepository.save(project);
@@ -152,7 +152,7 @@ public class ProjectService {
                 project.getName(),
                 project.getDescription(),
                 project.getStatus(),
-                project.getType(),
+                project.getTypeId(),
                 project.getOwnerId(),
                 project.getCreatedAt(),
                 project.getUpdatedAt()
@@ -165,7 +165,7 @@ public class ProjectService {
                 project.getName(),
                 project.getDescription(),
                 project.getStatus(),
-                project.getType(),
+                project.getTypeId(),
                 project.getOwnerId(),
                 project.getCreatedAt(),
                 project.getUpdatedAt()

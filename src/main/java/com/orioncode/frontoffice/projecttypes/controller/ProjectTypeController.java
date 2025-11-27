@@ -1,9 +1,9 @@
-package com.orioncode.frontoffice.projectmanagement.controller;
+package com.orioncode.frontoffice.projecttypes.controller;
 
-import com.orioncode.frontoffice.projectmanagement.dto.ProjectTypeRequestDTO;
-import com.orioncode.frontoffice.projectmanagement.dto.ProjectTypeResponseDTO;
-import com.orioncode.frontoffice.projectmanagement.dto.ProjectTypeSearchResponseDTO;
-import com.orioncode.frontoffice.projectmanagement.service.ProjectTypeService;
+import com.orioncode.frontoffice.projecttypes.dto.ProjectTypeRequestDTO;
+import com.orioncode.frontoffice.projecttypes.dto.ProjectTypeResponseDTO;
+import com.orioncode.frontoffice.projecttypes.dto.ProjectTypeSearchResponseDTO;
+import com.orioncode.frontoffice.projecttypes.service.ProjectTypeService;
 import com.orioncode.shared.dto.PageResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;

@@ -7,7 +7,7 @@ CRUD completo para la administración de tipos de proyecto. Este módulo permite
 ## Estructura del Módulo
 
 ```
-com.orioncode.frontoffice.projectmanagement/
+com.orioncode.frontoffice.projecttypes/
 ├── controller/
 │   └── ProjectTypeController.java
 ├── dto/

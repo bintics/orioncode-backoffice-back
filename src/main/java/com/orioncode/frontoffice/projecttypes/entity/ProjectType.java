@@ -1,4 +1,4 @@
-package com.orioncode.frontoffice.projectmanagement.entity;
+package com.orioncode.frontoffice.projecttypes.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

@@ -1,4 +1,4 @@
-package com.orioncode.frontoffice.projectmanagement.dto;
+package com.orioncode.frontoffice.projecttypes.dto;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
