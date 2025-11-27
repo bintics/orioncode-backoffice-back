@@ -63,7 +63,7 @@ class CollaboratorServiceTest {
         assertNotNull(responseDTO.getId());
         assertEquals("Juan", responseDTO.getFirstName());
         assertEquals("Pérez", responseDTO.getLastName());
-        assertEquals("Team A", responseDTO.getTeam());
+        assertEquals("Team A", responseDTO.getTeamId());
         assertEquals(2, responseDTO.getTags().size());
     }
 
@@ -75,17 +75,6 @@ class CollaboratorServiceTest {
         List<CollaboratorResponseDTO> collaborators = collaboratorService.getAllCollaborators();
 
         assertEquals(2, collaborators.size());
-    }
-
-    @Test
-    void testGetCollaboratorsByTeam() {
-        collaboratorService.createCollaborator(new CollaboratorRequestDTO("EMP001", "Juan", "Pérez", position.getId(), "Team A", null));
-        collaboratorService.createCollaborator(new CollaboratorRequestDTO("EMP002", "María", "García", position.getId(), "Team A", null));
-        collaboratorService.createCollaborator(new CollaboratorRequestDTO("EMP003", "Pedro", "López", position.getId(), "Team B", null));
-
-        List<CollaboratorResponseDTO> teamACollaborators = collaboratorService.getCollaboratorsByTeam("Team A");
-
-        assertEquals(2, teamACollaborators.size());
     }
 
     @Test
@@ -106,7 +95,7 @@ class CollaboratorServiceTest {
         CollaboratorResponseDTO updated = collaboratorService.updateCollaborator(created.getId(), updateDTO);
 
         assertEquals("Juan Carlos", updated.getFirstName());
-        assertEquals("Team B", updated.getTeam());
+        assertEquals("Team B", updated.getTeamId());
     }
 
     @Test

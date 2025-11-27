@@ -1,0 +1,15 @@
+package com.orioncode.frontoffice.projectmanagement.repository;
+
+import com.orioncode.frontoffice.projectmanagement.entity.Project;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
+import org.springframework.stereotype.Repository;
+
+import java.util.List;
+
+@Repository
+public interface ProjectRepository extends JpaRepository<Project, Long>, JpaSpecificationExecutor<Project> {
+    List<Project> findByOwnerId(String ownerId);
+    List<Project> findByStatus(String status);
+}
+

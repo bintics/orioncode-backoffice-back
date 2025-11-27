@@ -224,3 +224,40 @@ INSERT INTO collaborator_tags (collaborator_id, tag) VALUES
 ('coll-0008','Docker'),('coll-0008','CI/CD'),
 ('coll-0009','Kubernetes'),('coll-0009','Bash'),
 ('coll-0010','Python'),('coll-0010','Go');
+
+-- =====================================================
+-- INSERTAR PROYECTOS (30 proyectos de ejemplo)
+-- =====================================================
+
+INSERT INTO projects (name, description, status, owner_id, created_at, updated_at) VALUES
+('E-Commerce Platform', 'Plataforma de comercio electrónico escalable con integración de pagos', 'ACTIVE', 'team-001', NOW(), NOW()),
+('Customer Portal', 'Portal web para gestión de clientes y autoservicio', 'ACTIVE', 'team-002', NOW(), NOW()),
+('Mobile Banking App', 'Aplicación móvil para operaciones bancarias', 'ACTIVE', 'team-003', NOW(), NOW()),
+('CI/CD Pipeline', 'Infraestructura automatizada de integración y despliegue continuo', 'ACTIVE', 'team-004', NOW(), NOW()),
+('Automated Testing Suite', 'Suite de pruebas automatizadas end-to-end', 'ACTIVE', 'team-005', NOW(), NOW()),
+('Microservices Architecture', 'Migración de monolito a arquitectura de microservicios', 'ACTIVE', 'team-006', NOW(), NOW()),
+('Data Warehouse', 'Sistema de almacenamiento y procesamiento de datos empresariales', 'ACTIVE', 'team-007', NOW(), NOW()),
+('Recommendation Engine', 'Motor de recomendaciones basado en ML', 'ACTIVE', 'team-008', NOW(), NOW()),
+('Security Audit System', 'Sistema de auditoría y monitoreo de seguridad', 'ACTIVE', 'team-009', NOW(), NOW()),
+('Admin Dashboard', 'Panel de administración con reportes y métricas', 'ACTIVE', 'team-010', NOW(), NOW()),
+('Cloud Migration', 'Migración de infraestructura on-premise a la nube', 'ACTIVE', 'team-011', NOW(), NOW()),
+('Business Intelligence', 'Plataforma de análisis y visualización de datos', 'ACTIVE', 'team-012', NOW(), NOW()),
+('Support Ticketing System', 'Sistema de gestión de tickets de soporte', 'ACTIVE', 'team-013', NOW(), NOW()),
+('IoT Platform', 'Plataforma para gestión de dispositivos IoT', 'ACTIVE', 'team-014', NOW(), NOW()),
+('ERP Integration', 'Integración con sistemas ERP empresariales', 'ACTIVE', 'team-015', NOW(), NOW()),
+('API Gateway', 'Gateway centralizado para gestión de APIs', 'DRAFT', 'team-001', NOW(), NOW()),
+('Payment Gateway', 'Integración de múltiples métodos de pago', 'DRAFT', 'team-002', NOW(), NOW()),
+('Social Media Integration', 'Integración con redes sociales principales', 'DRAFT', 'team-003', NOW(), NOW()),
+('Monitoring Dashboard', 'Dashboard de monitoreo de infraestructura', 'DRAFT', 'team-004', NOW(), NOW()),
+('Load Testing Framework', 'Framework para pruebas de carga y rendimiento', 'DRAFT', 'team-005', NOW(), NOW()),
+('Service Mesh Implementation', 'Implementación de service mesh para microservicios', 'ARCHIVED', 'team-006', NOW(), NOW()),
+('Legacy System Migration', 'Migración de sistemas legacy a tecnologías modernas', 'ARCHIVED', 'team-007', NOW(), NOW()),
+('Chatbot Platform', 'Plataforma de chatbots con IA conversacional', 'ACTIVE', 'team-008', NOW(), NOW()),
+('Identity Management', 'Sistema de gestión de identidades y accesos', 'ACTIVE', 'team-009', NOW(), NOW()),
+('Content Management System', 'CMS personalizado para gestión de contenido', 'ACTIVE', 'team-010', NOW(), NOW()),
+('Kubernetes Cluster', 'Cluster de Kubernetes para orquestación de contenedores', 'ACTIVE', 'team-011', NOW(), NOW()),
+('Real-time Analytics', 'Sistema de analytics en tiempo real', 'ACTIVE', 'team-012', NOW(), NOW()),
+('Knowledge Base', 'Base de conocimiento interna para equipos', 'DRAFT', 'team-013', NOW(), NOW()),
+('Blockchain Integration', 'Integración con tecnología blockchain', 'DRAFT', 'team-014', NOW(), NOW()),
+('Video Streaming Platform', 'Plataforma de streaming de video bajo demanda', 'ACTIVE', 'team-015', NOW(), NOW());
+

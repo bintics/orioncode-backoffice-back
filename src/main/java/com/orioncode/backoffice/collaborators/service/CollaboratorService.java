@@ -45,13 +45,6 @@ public class CollaboratorService {
         return convertToDTO(collaborator);
     }
 
-    @Transactional(readOnly = true)
-    public List<CollaboratorResponseDTO> getCollaboratorsByPosition(String positionId) {
-        return collaboratorRepository.findByPositionId(positionId).stream()
-                .map(this::convertToDTO)
-                .collect(Collectors.toList());
-    }
-
     @Transactional
     public CollaboratorResponseDTO createCollaborator(CollaboratorRequestDTO requestDTO) {
         String collaboratorId = requestDTO.getId();
