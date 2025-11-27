@@ -1,6 +1,6 @@
 package com.orioncode.backoffice.team.controller;
 
-import com.orioncode.backoffice.common.dto.PageResponse;
+import com.orioncode.shared.dto.PageResponse;
 import com.orioncode.backoffice.team.dto.TeamRequestDTO;
 import com.orioncode.backoffice.team.dto.TeamResponseDTO;
 import com.orioncode.backoffice.team.service.TeamService;

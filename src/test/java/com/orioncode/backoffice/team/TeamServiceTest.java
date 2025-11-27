@@ -1,9 +1,8 @@
 package com.orioncode.backoffice.team;
 
-import com.orioncode.backoffice.common.exception.ResourceNotFoundException;
+import com.orioncode.shared.exception.ResourceNotFoundException;
 import com.orioncode.backoffice.team.dto.TeamRequestDTO;
 import com.orioncode.backoffice.team.dto.TeamResponseDTO;
-import com.orioncode.backoffice.team.entity.Team;
 import com.orioncode.backoffice.team.repository.TeamRepository;
 import com.orioncode.backoffice.team.service.TeamService;
 import org.junit.jupiter.api.BeforeEach;

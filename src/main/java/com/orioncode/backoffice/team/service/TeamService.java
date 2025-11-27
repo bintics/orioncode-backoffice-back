@@ -1,10 +1,9 @@
 package com.orioncode.backoffice.team.service;
 
-import com.orioncode.backoffice.common.exception.ResourceNotFoundException;
-import com.orioncode.backoffice.common.dto.PageResponse;
-import com.orioncode.backoffice.common.dto.PaginationMetadata;
-import com.orioncode.backoffice.common.dto.SearchMetadata;
-import com.orioncode.backoffice.position.entity.Position;
+import com.orioncode.shared.exception.ResourceNotFoundException;
+import com.orioncode.shared.dto.PageResponse;
+import com.orioncode.shared.dto.PaginationMetadata;
+import com.orioncode.shared.dto.SearchMetadata;
 import com.orioncode.backoffice.team.dto.TeamRequestDTO;
 import com.orioncode.backoffice.team.dto.TeamResponseDTO;
 import com.orioncode.backoffice.team.entity.Team;

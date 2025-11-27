@@ -1,6 +1,6 @@
 package com.orioncode.backoffice.position.controller;
 
-import com.orioncode.backoffice.common.dto.PageResponse;
+import com.orioncode.shared.dto.PageResponse;
 import com.orioncode.backoffice.position.dto.PositionRequestDTO;
 import com.orioncode.backoffice.position.dto.PositionResponseDTO;
 import com.orioncode.backoffice.position.service.PositionService;

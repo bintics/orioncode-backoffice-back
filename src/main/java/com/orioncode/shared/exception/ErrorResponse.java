@@ -1,4 +1,4 @@
-package com.orioncode.backoffice.common.exception;
+package com.orioncode.shared.exception;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
