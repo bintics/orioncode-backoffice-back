@@ -159,6 +159,18 @@ public class ProjectTypeService {
         );
     }
 
+    @Transactional(readOnly = true)
+    public List<ProjectTypeResponseDTO> getProjectTypesByIds(List<String> ids) {
+        if (ids == null || ids.isEmpty()) {
+            return List.of();
+        }
+
+        List<ProjectType> projectTypes = projectTypeRepository.findAllById(ids);
+        return projectTypes.stream()
+                .map(this::convertToDTO)
+                .collect(Collectors.toList());
+    }
+
     private ProjectTypeSearchResponseDTO convertToSearchDTO(ProjectType projectType) {
         return new ProjectTypeSearchResponseDTO(
                 projectType.getId(),

@@ -72,6 +72,21 @@ public class ProjectTypeController {
         return ResponseEntity.ok(projectTypeService.getProjectTypeById(id));
     }
 
+    @PostMapping("/batch")
+    @Operation(
+        summary = "Obtener múltiples tipos de proyecto por IDs",
+        description = "Retorna los detalles de múltiples tipos de proyecto dado un array de IDs. " +
+                     "Los IDs que no existan serán ignorados silenciosamente. " +
+                     "Usa POST en lugar de GET para evitar limitaciones de longitud de URL y " +
+                     "permitir la consulta de cientos o miles de tipos de proyecto en una sola petición."
+    )
+    public ResponseEntity<List<ProjectTypeResponseDTO>> getProjectTypesByIds(
+            @Parameter(description = "Lista de IDs de tipos de proyecto a consultar", required = true)
+            @RequestBody @Valid List<@jakarta.validation.constraints.NotBlank String> ids) {
+        List<ProjectTypeResponseDTO> projectTypes = projectTypeService.getProjectTypesByIds(ids);
+        return ResponseEntity.ok(projectTypes);
+    }
+
     @GetMapping("/name/{name}")
     @Operation(summary = "Obtener tipo de proyecto por nombre", description = "Retorna un tipo de proyecto específico por su nombre")
     public ResponseEntity<ProjectTypeResponseDTO> getProjectTypeByName(@PathVariable String name) {
