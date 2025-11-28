@@ -105,6 +105,8 @@ public class ProjectService {
                         return cb.like(cb.lower(root.get("description")), searchPattern);
                     case "status":
                         return cb.like(cb.lower(root.get("status")), searchPattern);
+                    case "typeid":
+                        return cb.like(cb.lower(root.get("typeId")), searchPattern);
                     case "ownerid":
                         return cb.like(cb.lower(root.get("ownerId")), searchPattern);
                     default:
@@ -122,6 +124,7 @@ public class ProjectService {
                 cb.like(cb.lower(root.get("name")), searchPattern),
                 cb.like(cb.lower(root.get("description")), searchPattern),
                 cb.like(cb.lower(root.get("status")), searchPattern),
+                cb.like(cb.lower(root.get("typeId")), searchPattern),
                 cb.like(cb.lower(root.get("ownerId")), searchPattern)
             ));
         }
@@ -140,7 +143,7 @@ public class ProjectService {
         );
 
         SearchMetadata metadata = new SearchMetadata(
-                List.of("name", "description", "status", "type", "ownerId")
+                List.of("name", "description", "status", "typeId", "ownerId")
         );
 
         return new PageResponse<>(data, pagination, metadata);
