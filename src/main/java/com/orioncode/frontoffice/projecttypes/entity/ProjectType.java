@@ -1,4 +1,4 @@
-package com.orioncode.frontoffice.projects.entity;
+package com.orioncode.frontoffice.projecttypes.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -8,31 +8,20 @@ import lombok.NoArgsConstructor;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "projects")
+@Table(name = "project_types")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Project {
+public class ProjectType {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private String id;
 
-    @Column(nullable = false, length = 200)
+    @Column(nullable = false, unique = true, length = 100)
     private String name;
 
-    @Column(length = 1000)
+    @Column(length = 500)
     private String description;
-
-    @Column(nullable = false, length = 50)
-    private String status;
-
-    @Column(name = "type_id", nullable = false, length = 50)
-    private String typeId;
-
-    // Se asume que ownerId es un String que referencia al ID del equipo de desarrollo
-    @Column(name = "owner_id", nullable = false, length = 100)
-    private String ownerId;
 
     @Column(name = "created_at", nullable = false, updatable = false)
     private LocalDateTime createdAt;

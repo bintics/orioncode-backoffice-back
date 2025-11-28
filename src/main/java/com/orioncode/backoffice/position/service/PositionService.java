@@ -167,6 +167,18 @@ public class PositionService {
                 .collect(Collectors.toList());
     }
 
+    @Transactional(readOnly = true)
+    public List<PositionResponseDTO> getPositionsByIds(List<String> ids) {
+        if (ids == null || ids.isEmpty()) {
+            return List.of();
+        }
+
+        List<Position> positions = positionRepository.findAllById(ids);
+        return positions.stream()
+                .map(this::convertToDTO)
+                .collect(Collectors.toList());
+    }
+
     private PositionResponseDTO convertToDTO(Position position) {
         return new PositionResponseDTO(
                 position.getId(),

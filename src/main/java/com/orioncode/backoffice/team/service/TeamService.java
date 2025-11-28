@@ -189,4 +189,16 @@ public class TeamService {
                 ))
                 .collect(Collectors.toList());
     }
+
+    @Transactional(readOnly = true)
+    public List<TeamResponseDTO> getTeamsByIds(List<String> ids) {
+        if (ids == null || ids.isEmpty()) {
+            return List.of();
+        }
+
+        List<Team> teams = teamRepository.findAllById(ids);
+        return teams.stream()
+                .map(this::convertToResponseDTO)
+                .collect(Collectors.toList());
+    }
 }

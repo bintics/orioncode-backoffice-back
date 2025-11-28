@@ -110,6 +110,7 @@ INSERT INTO collaborators (id, first_name, last_name, position_id, team_id, crea
 
 -- Nuevos colaboradores (coll-0041 a coll-0140)
 INSERT INTO collaborators (id, first_name, last_name, position_id, team_id, created_at, updated_at) VALUES
+('15db0265-9c18-4d74-9d95-a66cfa384715','Federico','Farias','pos-004','team-001',NOW(),NOW()),
 ('coll-0041','Juan','Pérez','pos-001','team-011',NOW(),NOW()),
 ('coll-0042','María','García','pos-001','team-012',NOW(),NOW()),
 ('coll-0043','Pedro','López','pos-001','team-013',NOW(),NOW()),
@@ -229,7 +230,7 @@ INSERT INTO collaborator_tags (collaborator_id, tag) VALUES
 -- INSERTAR PROYECTOS (30 proyectos de ejemplo)
 -- =====================================================
 
-INSERT INTO projects (name, description, status, type, owner_id, created_at, updated_at) VALUES
+INSERT INTO projects (name, description, status, type_id, owner_id, created_at, updated_at) VALUES
 ('E-Commerce Platform', 'Plataforma de comercio electrónico escalable con integración de pagos', 'ACTIVE', 'WEB_APPLICATION', 'team-001', NOW(), NOW()),
 ('Customer Portal', 'Portal web para gestión de clientes y autoservicio', 'ACTIVE', 'WEB_APPLICATION', 'team-002', NOW(), NOW()),
 ('Mobile Banking App', 'Aplicación móvil para operaciones bancarias', 'ACTIVE', 'MOBILE_APP', 'team-003', NOW(), NOW()),
@@ -260,4 +261,21 @@ INSERT INTO projects (name, description, status, type, owner_id, created_at, upd
 ('Knowledge Base', 'Base de conocimiento interna para equipos', 'DRAFT', 'WEB_APPLICATION', 'team-013', NOW(), NOW()),
 ('Blockchain Integration', 'Integración con tecnología blockchain', 'DRAFT', 'INTEGRATION', 'team-014', NOW(), NOW()),
 ('Video Streaming Platform', 'Plataforma de streaming de video bajo demanda', 'ACTIVE', 'WEB_APPLICATION', 'team-015', NOW(), NOW());
+
+-- =====================================================
+-- INSERTAR TIPOS DE PROYECTO (11 tipos predefinidos)
+-- =====================================================
+
+INSERT INTO project_types (id, name, description, created_at, updated_at) VALUES
+('pt-001', 'WEB_APPLICATION', 'Aplicaciones web tradicionales, portales, dashboards y sistemas web interactivos', NOW(), NOW()),
+('pt-002', 'MOBILE_APP', 'Aplicaciones móviles nativas o híbridas para iOS, Android o multiplataforma', NOW(), NOW()),
+('pt-003', 'MICROSERVICE', 'Servicios independientes que forman parte de una arquitectura de microservicios', NOW(), NOW()),
+('pt-004', 'INFRASTRUCTURE', 'Proyectos relacionados con infraestructura, DevOps y plataforma', NOW(), NOW()),
+('pt-005', 'DATA_ENGINEERING', 'Proyectos de ingeniería de datos, ETL, data warehouses y análisis', NOW(), NOW()),
+('pt-006', 'MACHINE_LEARNING', 'Proyectos de inteligencia artificial, machine learning y data science', NOW(), NOW()),
+('pt-007', 'SECURITY', 'Proyectos enfocados en seguridad, auditoría y cumplimiento', NOW(), NOW()),
+('pt-008', 'INTEGRATION', 'Proyectos de integración entre sistemas, APIs y plataformas externas', NOW(), NOW()),
+('pt-009', 'TOOLING', 'Herramientas internas, frameworks y utilidades para desarrolladores', NOW(), NOW()),
+('pt-010', 'IOT', 'Proyectos relacionados con Internet of Things y dispositivos conectados', NOW(), NOW()),
+('pt-011', 'ARCHITECTURE', 'Proyectos de diseño arquitectónico, migraciones y modernizaciones', NOW(), NOW());
 
