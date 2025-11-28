@@ -1,5 +1,6 @@
 package com.orioncode.frontoffice.projects.service;
 
+import com.orioncode.shared.criteria.CriterialParser;
 import com.orioncode.shared.exception.ResourceNotFoundException;
 import com.orioncode.shared.dto.PageResponse;
 import com.orioncode.shared.dto.PaginationMetadata;
@@ -24,6 +25,7 @@ import java.util.stream.Collectors;
 public class ProjectService {
 
     private final ProjectRepository projectRepository;
+    private final CriterialParser criterialParser;
 
     @Transactional(readOnly = true)
     public List<ProjectResponse> getAllProjects() {
@@ -95,37 +97,15 @@ public class ProjectService {
         Specification<Project> spec = Specification.where(null);
 
         if (filter != null && !filter.trim().isEmpty() && search != null && !search.trim().isEmpty()) {
-            String searchPattern = "%" + search.toLowerCase() + "%";
-
-            spec = spec.and((root, query, cb) -> {
-                switch (filter.toLowerCase()) {
-                    case "name":
-                        return cb.like(cb.lower(root.get("name")), searchPattern);
-                    case "description":
-                        return cb.like(cb.lower(root.get("description")), searchPattern);
-                    case "status":
-                        return cb.like(cb.lower(root.get("status")), searchPattern);
-                    case "typeid":
-                        return cb.like(cb.lower(root.get("typeId")), searchPattern);
-                    case "ownerid":
-                        return cb.like(cb.lower(root.get("ownerId")), searchPattern);
-                    default:
-                        return cb.or(
-                            cb.like(cb.lower(root.get("name")), searchPattern),
-                            cb.like(cb.lower(root.get("description")), searchPattern),
-                            cb.like(cb.lower(root.get("status")), searchPattern),
-                            cb.like(cb.lower(root.get("ownerId")), searchPattern)
-                        );
-                }
-            });
+            spec = this.criterialParser.parse(filter, search);
         } else if (search != null && !search.trim().isEmpty()) {
             String searchPattern = "%" + search.toLowerCase() + "%";
             spec = spec.and((root, query, cb) -> cb.or(
-                cb.like(cb.lower(root.get("name")), searchPattern),
-                cb.like(cb.lower(root.get("description")), searchPattern),
-                cb.like(cb.lower(root.get("status")), searchPattern),
-                cb.like(cb.lower(root.get("typeId")), searchPattern),
-                cb.like(cb.lower(root.get("ownerId")), searchPattern)
+                    cb.like(cb.lower(root.get("name")), searchPattern),
+                    cb.like(cb.lower(root.get("description")), searchPattern),
+                    cb.like(cb.lower(root.get("status")), searchPattern),
+                    cb.like(cb.lower(root.get("typeId")), searchPattern),
+                    cb.like(cb.lower(root.get("ownerId")), searchPattern)
             ));
         }
 
