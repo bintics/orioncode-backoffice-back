@@ -76,6 +76,21 @@ public class TeamController {
         return ResponseEntity.ok(teamService.getTeamById(id));
     }
 
+    @PostMapping("/batch")
+    @Operation(
+        summary = "Obtener múltiples equipos por IDs",
+        description = "Retorna los detalles de múltiples equipos dado un array de IDs. " +
+                     "Los IDs que no existan serán ignorados silenciosamente. " +
+                     "Usa POST en lugar de GET para evitar limitaciones de longitud de URL y " +
+                     "permitir la consulta de cientos o miles de equipos en una sola petición."
+    )
+    public ResponseEntity<List<TeamResponseDTO>> getTeamsByIds(
+            @Parameter(description = "Lista de IDs de equipos a consultar", required = true)
+            @RequestBody @jakarta.validation.constraints.NotNull List<@jakarta.validation.constraints.NotBlank String> ids) {
+        List<TeamResponseDTO> teams = teamService.getTeamsByIds(ids);
+        return ResponseEntity.ok(teams);
+    }
+
     @GetMapping("/name/{name}")
     @Operation(summary = "Obtener equipo por nombre")
     public ResponseEntity<TeamResponseDTO> getTeamByName(@PathVariable String name) {
