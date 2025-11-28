@@ -88,6 +88,21 @@ public class PositionController {
         return ResponseEntity.ok(positionService.getPositionById(id));
     }
 
+    @PostMapping("/batch")
+    @Operation(
+        summary = "Obtener múltiples puestos por IDs",
+        description = "Retorna los detalles de múltiples puestos dado un array de IDs. " +
+                     "Los IDs que no existan serán ignorados silenciosamente. " +
+                     "Usa POST en lugar de GET para evitar limitaciones de longitud de URL y " +
+                     "permitir la consulta de cientos o miles de puestos en una sola petición."
+    )
+    public ResponseEntity<java.util.List<PositionResponseDTO>> getPositionsByIds(
+            @Parameter(description = "Lista de IDs de puestos a consultar", required = true)
+            @RequestBody @Valid java.util.List<@jakarta.validation.constraints.NotBlank String> ids) {
+        java.util.List<PositionResponseDTO> positions = positionService.getPositionsByIds(ids);
+        return ResponseEntity.ok(positions);
+    }
+
     @PostMapping
     @Operation(summary = "Crear nuevo puesto", description = "Crea un nuevo puesto de trabajo")
     public ResponseEntity<PositionResponseDTO> createPosition(@Valid @RequestBody PositionRequestDTO requestDTO) {
