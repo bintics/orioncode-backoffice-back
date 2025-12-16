@@ -1,5 +1,6 @@
 package com.orioncode.frontoffice.projects.service;
 
+import com.orioncode.frontoffice.projects.dto.CreateProjectRequestDTO;
 import com.orioncode.shared.criteria.CriterialParser;
 import com.orioncode.shared.exception.ResourceNotFoundException;
 import com.orioncode.shared.dto.PageResponse;
@@ -35,7 +36,7 @@ public class ProjectService {
     }
 
     @Transactional(readOnly = true)
-    public ProjectResponse getProjectById(Long id) {
+    public ProjectResponse getProjectById(String id) {
         Project project = projectRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Proyecto no encontrado con ID: " + id));
         return convertToDTO(project);
@@ -56,19 +57,21 @@ public class ProjectService {
     }
 
     @Transactional
-    public ProjectResponse createProject(ProjectRequestDTO requestDTO) {
+    public ProjectResponse createProject(CreateProjectRequestDTO requestDTO) {
         Project project = new Project();
+        project.setId(requestDTO.getId());
         project.setName(requestDTO.getName());
         project.setDescription(requestDTO.getDescription());
-        project.setStatus(requestDTO.getStatus());
+        project.setStatus("New");
         project.setOwnerId(requestDTO.getOwnerId());
+        project.setTypeId(requestDTO.getTypeId());
 
         Project savedProject = projectRepository.save(project);
         return convertToDTO(savedProject);
     }
 
     @Transactional
-    public ProjectResponse updateProject(Long id, ProjectRequestDTO requestDTO) {
+    public ProjectResponse updateProject(String id, ProjectRequestDTO requestDTO) {
         Project project = projectRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Proyecto no encontrado con ID: " + id));
 
@@ -83,7 +86,7 @@ public class ProjectService {
     }
 
     @Transactional
-    public void deleteProject(Long id) {
+    public void deleteProject(String id) {
         if (!projectRepository.existsById(id)) {
             throw new ResourceNotFoundException("Proyecto no encontrado con ID: " + id);
         }

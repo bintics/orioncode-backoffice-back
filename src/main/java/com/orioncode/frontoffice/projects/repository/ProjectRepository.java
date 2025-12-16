@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface ProjectRepository extends JpaRepository<Project, Long>, JpaSpecificationExecutor<Project> {
+public interface ProjectRepository extends JpaRepository<Project, String>, JpaSpecificationExecutor<Project> {
     List<Project> findByOwnerId(String ownerId);
     List<Project> findByStatus(String status);
 }
