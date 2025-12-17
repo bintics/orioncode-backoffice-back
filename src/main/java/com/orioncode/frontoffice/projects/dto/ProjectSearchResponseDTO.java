@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class ProjectSearchResponseDTO {
 
-    private Long id;
+    private String id;
     private String name;
     private String description;
     private String status;

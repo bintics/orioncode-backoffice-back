@@ -1,5 +1,7 @@
 package com.orioncode.frontoffice.projects.service;
 
+import com.orioncode.frontoffice.projects.dto.CreateProjectRequestDTO;
+import com.orioncode.shared.criteria.CriterialParser;
 import com.orioncode.shared.exception.ResourceNotFoundException;
 import com.orioncode.shared.dto.PageResponse;
 import com.orioncode.shared.dto.PaginationMetadata;
@@ -24,6 +26,7 @@ import java.util.stream.Collectors;
 public class ProjectService {
 
     private final ProjectRepository projectRepository;
+    private final CriterialParser criterialParser;
 
     @Transactional(readOnly = true)
     public List<ProjectResponse> getAllProjects() {
@@ -33,7 +36,7 @@ public class ProjectService {
     }
 
     @Transactional(readOnly = true)
-    public ProjectResponse getProjectById(Long id) {
+    public ProjectResponse getProjectById(String id) {
         Project project = projectRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Proyecto no encontrado con ID: " + id));
         return convertToDTO(project);
@@ -54,19 +57,21 @@ public class ProjectService {
     }
 
     @Transactional
-    public ProjectResponse createProject(ProjectRequestDTO requestDTO) {
+    public ProjectResponse createProject(CreateProjectRequestDTO requestDTO) {
         Project project = new Project();
+        project.setId(requestDTO.getId());
         project.setName(requestDTO.getName());
         project.setDescription(requestDTO.getDescription());
-        project.setStatus(requestDTO.getStatus());
+        project.setStatus("New");
         project.setOwnerId(requestDTO.getOwnerId());
+        project.setTypeId(requestDTO.getTypeId());
 
         Project savedProject = projectRepository.save(project);
         return convertToDTO(savedProject);
     }
 
     @Transactional
-    public ProjectResponse updateProject(Long id, ProjectRequestDTO requestDTO) {
+    public ProjectResponse updateProject(String id, ProjectRequestDTO requestDTO) {
         Project project = projectRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Proyecto no encontrado con ID: " + id));
 
@@ -81,7 +86,7 @@ public class ProjectService {
     }
 
     @Transactional
-    public void deleteProject(Long id) {
+    public void deleteProject(String id) {
         if (!projectRepository.existsById(id)) {
             throw new ResourceNotFoundException("Proyecto no encontrado con ID: " + id);
         }
@@ -95,37 +100,15 @@ public class ProjectService {
         Specification<Project> spec = Specification.where(null);
 
         if (filter != null && !filter.trim().isEmpty() && search != null && !search.trim().isEmpty()) {
-            String searchPattern = "%" + search.toLowerCase() + "%";
-
-            spec = spec.and((root, query, cb) -> {
-                switch (filter.toLowerCase()) {
-                    case "name":
-                        return cb.like(cb.lower(root.get("name")), searchPattern);
-                    case "description":
-                        return cb.like(cb.lower(root.get("description")), searchPattern);
-                    case "status":
-                        return cb.like(cb.lower(root.get("status")), searchPattern);
-                    case "typeid":
-                        return cb.like(cb.lower(root.get("typeId")), searchPattern);
-                    case "ownerid":
-                        return cb.like(cb.lower(root.get("ownerId")), searchPattern);
-                    default:
-                        return cb.or(
-                            cb.like(cb.lower(root.get("name")), searchPattern),
-                            cb.like(cb.lower(root.get("description")), searchPattern),
-                            cb.like(cb.lower(root.get("status")), searchPattern),
-                            cb.like(cb.lower(root.get("ownerId")), searchPattern)
-                        );
-                }
-            });
+            spec = this.criterialParser.parse(filter, search);
         } else if (search != null && !search.trim().isEmpty()) {
             String searchPattern = "%" + search.toLowerCase() + "%";
             spec = spec.and((root, query, cb) -> cb.or(
-                cb.like(cb.lower(root.get("name")), searchPattern),
-                cb.like(cb.lower(root.get("description")), searchPattern),
-                cb.like(cb.lower(root.get("status")), searchPattern),
-                cb.like(cb.lower(root.get("typeId")), searchPattern),
-                cb.like(cb.lower(root.get("ownerId")), searchPattern)
+                    cb.like(cb.lower(root.get("name")), searchPattern),
+                    cb.like(cb.lower(root.get("description")), searchPattern),
+                    cb.like(cb.lower(root.get("status")), searchPattern),
+                    cb.like(cb.lower(root.get("typeId")), searchPattern),
+                    cb.like(cb.lower(root.get("ownerId")), searchPattern)
             ));
         }
 

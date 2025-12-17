@@ -1,5 +1,6 @@
 package com.orioncode.frontoffice.projects.controller;
 
+import com.orioncode.frontoffice.projects.dto.CreateProjectRequestDTO;
 import com.orioncode.frontoffice.projects.dto.ProjectRequestDTO;
 import com.orioncode.frontoffice.projects.dto.ProjectResponse;
 import com.orioncode.frontoffice.projects.dto.ProjectSearchResponseDTO;
@@ -61,13 +62,13 @@ public class ProjectController {
 
     @GetMapping("/{id}")
     @Operation(summary = "Obtener proyecto por ID", description = "Retorna un proyecto específico por su ID")
-    public ResponseEntity<ProjectResponse> getProjectById(@PathVariable Long id) {
+    public ResponseEntity<ProjectResponse> getProjectById(@PathVariable String id) {
         return ResponseEntity.ok(projectService.getProjectById(id));
     }
 
     @PostMapping
     @Operation(summary = "Crear nuevo proyecto", description = "Crea un nuevo proyecto")
-    public ResponseEntity<ProjectResponse> createProject(@Valid @RequestBody ProjectRequestDTO requestDTO) {
+    public ResponseEntity<ProjectResponse> createProject(@Valid @RequestBody CreateProjectRequestDTO requestDTO) {
         ProjectResponse createdProject = projectService.createProject(requestDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body(createdProject);
     }
@@ -75,14 +76,14 @@ public class ProjectController {
     @PutMapping("/{id}")
     @Operation(summary = "Actualizar proyecto", description = "Actualiza un proyecto existente")
     public ResponseEntity<ProjectResponse> updateProject(
-            @PathVariable Long id,
+            @PathVariable String id,
             @Valid @RequestBody ProjectRequestDTO requestDTO) {
         return ResponseEntity.ok(projectService.updateProject(id, requestDTO));
     }
 
     @DeleteMapping("/{id}")
     @Operation(summary = "Eliminar proyecto", description = "Elimina un proyecto por su ID")
-    public ResponseEntity<Void> deleteProject(@PathVariable Long id) {
+    public ResponseEntity<Void> deleteProject(@PathVariable String id) {
         projectService.deleteProject(id);
         return ResponseEntity.noContent().build();
     }
