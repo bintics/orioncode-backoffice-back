@@ -277,5 +277,27 @@ INSERT INTO project_types (id, name, description, created_at, updated_at) VALUES
 ('pt-008', 'INTEGRATION', 'Proyectos de integración entre sistemas, APIs y plataformas externas', NOW(), NOW()),
 ('pt-009', 'TOOLING', 'Herramientas internas, frameworks y utilidades para desarrolladores', NOW(), NOW()),
 ('pt-010', 'IOT', 'Proyectos relacionados con Internet of Things y dispositivos conectados', NOW(), NOW()),
-('pt-011', 'ARCHITECTURE', 'Proyectos de diseño arquitectónico, migraciones y modernizaciones', NOW(), NOW());
+('pt-011', 'ARCHITECTURE', 'Proyectos de diseño arquitectónico, migraciones y modernizaciones', NOW(), NOW()),
+('pt-012', 'DATA_BASE_BANKING_CORE', 'Proyectos de base de datos para core bancario', NOW(), NOW());
+
+-- =====================================================
+-- INSERTAR SERVIDORES DE BASE DE DATOS (15 servidores)
+-- =====================================================
+
+INSERT INTO database_server (id, name, engine, version, host, port, environment, description, active, created_at, updated_at) VALUES
+('db-srv-001', 'PostgreSQL Production Primary', 'postgresql', '15.2', 'db-prod-pg-01.example.com', 5432, 'production', 'Servidor principal de PostgreSQL para aplicaciones de producción', TRUE, NOW(), NOW()),
+('db-srv-002', 'PostgreSQL Production Replica', 'postgresql', '15.2', 'db-prod-pg-02.example.com', 5432, 'production', 'Réplica de lectura para PostgreSQL de producción', TRUE, NOW(), NOW()),
+('db-srv-003', 'MySQL Production Main', 'mysql', '8.0.35', 'db-prod-mysql-01.example.com', 3306, 'production', 'Servidor MySQL principal para aplicaciones legacy', TRUE, NOW(), NOW()),
+('db-srv-004', 'Oracle Banking Core', 'oracle', '19c', 'db-prod-oracle-01.example.com', 1521, 'production', 'Base de datos Oracle para sistema core bancario', TRUE, NOW(), NOW()),
+('db-srv-005', 'Informix Legacy System', 'informix', '14.10', 'db-prod-ifx-01.example.com', 9088, 'production', 'Servidor Informix para sistema legacy de banca', TRUE, NOW(), NOW()),
+('db-srv-006', 'SQL Server Analytics', 'sql-server', '2022', 'db-prod-mssql-01.example.com', 1433, 'production', 'SQL Server para análisis y reportes', TRUE, NOW(), NOW()),
+('db-srv-007', 'PostgreSQL Staging', 'postgresql', '15.2', 'db-staging-pg-01.example.com', 5432, 'staging', 'Servidor PostgreSQL para ambiente de staging', TRUE, NOW(), NOW()),
+('db-srv-008', 'MySQL Staging', 'mysql', '8.0.35', 'db-staging-mysql-01.example.com', 3306, 'staging', 'Servidor MySQL para pruebas pre-producción', TRUE, NOW(), NOW()),
+('db-srv-009', 'PostgreSQL QA', 'postgresql', '15.2', 'db-qa-pg-01.example.com', 5432, 'qa', 'Servidor PostgreSQL para ambiente de QA', TRUE, NOW(), NOW()),
+('db-srv-010', 'MySQL QA', 'mysql', '8.0.35', 'db-qa-mysql-01.example.com', 3306, 'qa', 'Servidor MySQL para pruebas de calidad', TRUE, NOW(), NOW()),
+('db-srv-011', 'PostgreSQL Development', 'postgresql', '15.2', 'db-dev-pg-01.example.com', 5432, 'development', 'Servidor PostgreSQL para desarrollo local', TRUE, NOW(), NOW()),
+('db-srv-012', 'MySQL Development', 'mysql', '8.0.35', 'db-dev-mysql-01.example.com', 3306, 'development', 'Servidor MySQL para desarrollo', TRUE, NOW(), NOW()),
+('db-srv-013', 'Oracle Development', 'oracle', '19c', 'db-dev-oracle-01.example.com', 1521, 'development', 'Servidor Oracle para desarrollo de core bancario', TRUE, NOW(), NOW()),
+('db-srv-014', 'PostgreSQL Archive', 'postgresql', '14.8', 'db-archive-pg-01.example.com', 5432, 'production', 'Servidor de archivo histórico', FALSE, NOW(), NOW()),
+('db-srv-015', 'MySQL Legacy (Deprecated)', 'mysql', '5.7.42', 'db-old-mysql-01.example.com', 3306, 'production', 'Servidor MySQL legacy en proceso de descommissioning', FALSE, NOW(), NOW());
 
