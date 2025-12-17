@@ -301,3 +301,29 @@ INSERT INTO database_server (id, name, engine, version, host, port, environment,
 ('db-srv-014', 'PostgreSQL Archive', 'postgresql', '14.8', 'db-archive-pg-01.example.com', 5432, 'production', 'Servidor de archivo histórico', FALSE, NOW(), NOW()),
 ('db-srv-015', 'MySQL Legacy (Deprecated)', 'mysql', '5.7.42', 'db-old-mysql-01.example.com', 3306, 'production', 'Servidor MySQL legacy en proceso de descommissioning', FALSE, NOW(), NOW());
 
+-- =====================================================
+-- INSERTAR SCHEMAS DE BASE DE DATOS (20 schemas)
+-- =====================================================
+
+INSERT INTO database_schema (id, name, server_id, description, owner, tables_count, views_count, procedures_count, functions_count, last_modified, size_in_mb, created_at, updated_at) VALUES
+('schema-001', 'banking_core', 'db-srv-004', 'Schema principal del core bancario con datos transaccionales', 'oracle_admin', 350, 125, 220, 180, NOW(), 45600.50, NOW(), NOW()),
+('schema-002', 'banking_analytics', 'db-srv-006', 'Schema para análisis y reportes de datos bancarios', 'sql_admin', 180, 85, 45, 60, NOW(), 12300.75, NOW(), NOW()),
+('schema-003', 'customer_data', 'db-srv-001', 'Datos de clientes y perfiles', 'pg_admin', 95, 35, 70, 42, NOW(), 8750.25, NOW(), NOW()),
+('schema-004', 'transaction_history', 'db-srv-001', 'Histórico de transacciones financieras', 'pg_admin', 45, 20, 30, 25, NOW(), 95400.80, NOW(), NOW()),
+('schema-005', 'product_catalog', 'db-srv-003', 'Catálogo de productos bancarios', 'mysql_admin', 65, 28, 40, 35, NOW(), 3200.45, NOW(), NOW()),
+('schema-006', 'risk_management', 'db-srv-004', 'Gestión de riesgos y compliance', 'oracle_admin', 120, 55, 85, 70, NOW(), 15600.30, NOW(), NOW()),
+('schema-007', 'legacy_accounts', 'db-srv-005', 'Sistema legacy de cuentas (Informix)', 'ifx_admin', 280, 95, 180, 140, NOW(), 32500.60, NOW(), NOW()),
+('schema-008', 'audit_logs', 'db-srv-001', 'Logs de auditoría y trazabilidad', 'pg_admin', 25, 12, 18, 10, NOW(), 18900.25, NOW(), NOW()),
+('schema-009', 'payment_gateway', 'db-srv-001', 'Schema de pasarela de pagos', 'pg_admin', 55, 22, 38, 28, NOW(), 6700.15, NOW(), NOW()),
+('schema-010', 'credit_scoring', 'db-srv-006', 'Sistema de scoring crediticio', 'sql_admin', 42, 18, 25, 20, NOW(), 4500.90, NOW(), NOW()),
+('schema-011', 'mobile_banking', 'db-srv-003', 'Backend de aplicación móvil', 'mysql_admin', 75, 30, 50, 38, NOW(), 5600.40, NOW(), NOW()),
+('schema-012', 'fraud_detection', 'db-srv-001', 'Sistema de detección de fraudes', 'pg_admin', 68, 32, 45, 35, NOW(), 9800.55, NOW(), NOW()),
+('schema-013', 'loan_management', 'db-srv-004', 'Gestión de préstamos y créditos', 'oracle_admin', 145, 62, 95, 75, NOW(), 22100.70, NOW(), NOW()),
+('schema-014', 'investment_portfolio', 'db-srv-006', 'Portafolios de inversión', 'sql_admin', 88, 40, 55, 42, NOW(), 8900.35, NOW(), NOW()),
+('schema-015', 'compliance_reporting', 'db-srv-004', 'Reportes regulatorios y compliance', 'oracle_admin', 95, 78, 62, 48, NOW(), 11200.80, NOW(), NOW()),
+('schema-016', 'staging_data', 'db-srv-007', 'Schema de staging para ETL', 'pg_staging', 120, 45, 30, 20, NOW(), 15600.25, NOW(), NOW()),
+('schema-017', 'qa_testing', 'db-srv-009', 'Schema para pruebas de QA', 'pg_qa', 85, 30, 25, 18, NOW(), 3400.60, NOW(), NOW()),
+('schema-018', 'dev_sandbox', 'db-srv-011', 'Schema de desarrollo y sandbox', 'pg_dev', 60, 20, 15, 12, NOW(), 1200.30, NOW(), NOW()),
+('schema-019', 'archive_2023', 'db-srv-014', 'Archivo histórico año 2023', 'pg_archive', 320, 0, 0, 0, NOW(), 125000.00, NOW(), NOW()),
+('schema-020', 'legacy_migration', 'db-srv-013', 'Schema temporal para migración', 'oracle_dev', 45, 15, 10, 8, NOW(), 2800.50, NOW(), NOW());
+
