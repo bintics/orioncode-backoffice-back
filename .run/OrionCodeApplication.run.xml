@@ -3,7 +3,7 @@
     <option name="FRAME_DEACTIVATION_UPDATE_POLICY" value="UnknownPolicyInFreeMode" />
     <module name="backoffice" />
     <option name="SPRING_BOOT_MAIN_CLASS" value="com.orioncode.OrionCodeApplication" />
-    <option name="VM_PARAMETERS" value="-Dspring.datasource.username=root" />
+    <option name="VM_PARAMETERS" value="-Dspring.profiles.active=default" />
     <extension name="coverage">
       <pattern>
         <option name="PATTERN" value="com.orioncode.*" />
