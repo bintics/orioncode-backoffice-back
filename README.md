@@ -78,6 +78,62 @@ mvn spring-boot:run
 
 Para más detalles, consulta [COMO_EJECUTAR.md](docs/COMO_EJECUTAR.md)
 
+## 🤖 MCP (Model Context Protocol)
+
+Este backend ahora expone un endpoint MCP HTTP compatible por JSON-RPC para que cualquier cliente IA pueda consumir **una sola acción**.
+
+- Endpoint MCP: `POST /api/mcp`
+- Tool disponible: `search_collaborators`
+
+### 1) Inicializar sesión MCP
+
+```bash
+curl -X POST http://localhost:8090/api/mcp \
+  -H "Content-Type: application/json" \
+  -d '{
+    "jsonrpc": "2.0",
+    "id": 1,
+    "method": "initialize",
+    "params": {}
+  }'
+```
+
+### 2) Listar tools
+
+```bash
+curl -X POST http://localhost:8090/api/mcp \
+  -H "Content-Type: application/json" \
+  -d '{
+    "jsonrpc": "2.0",
+    "id": 2,
+    "method": "tools/list"
+  }'
+```
+
+### 3) Ejecutar la acción `search_collaborators`
+
+```bash
+curl -X POST http://localhost:8090/api/mcp \
+  -H "Content-Type: application/json" \
+  -d '{
+    "jsonrpc": "2.0",
+    "id": 3,
+    "method": "tools/call",
+    "params": {
+      "name": "search_collaborators",
+      "arguments": {
+        "search": "juan",
+        "page": 1,
+        "size": 20,
+        "sortBy": "firstName",
+        "sortDir": "asc"
+      }
+    }
+  }'
+```
+
+En Cloud Run, reemplaza `http://localhost:8090` por la URL pública de tu servicio.
+
 ## 📚 Documentación Adicional
 
 - [Guía de Ejecución Completa](docs/COMO_EJECUTAR.md)
