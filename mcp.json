@@ -36,6 +36,21 @@
           "sortDir": { "type": "string", "enum": ["asc", "desc"], "default": "asc" }
         }
       }
+    },
+    {
+      "name": "search_teams",
+      "description": "Busca equipos en OrionCode con filtros y paginación.",
+      "input_schema": {
+        "type": "object",
+        "properties": {
+          "filter": { "type": "string", "description": "Campo a filtrar: name, description o id" },
+          "search": { "type": "string", "description": "Texto a buscar" },
+          "page": { "type": "integer", "description": "Página inicial en 1", "default": 1 },
+          "size": { "type": "integer", "description": "Tamaño de página", "default": 20 },
+          "sortBy": { "type": "string", "description": "Campo de orden", "default": "name" },
+          "sortDir": { "type": "string", "enum": ["asc", "desc"], "default": "asc" }
+        }
+      }
     }
   ]
 }
