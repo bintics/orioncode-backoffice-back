@@ -1,4 +1,4 @@
-package com.orioncode.mcp.service;
+package com.orioncode.mcp.tools.service;
 
 import com.orioncode.backoffice.collaborators.dto.CollaboratorSearchResponseDTO;
 import com.orioncode.backoffice.collaborators.service.CollaboratorService;

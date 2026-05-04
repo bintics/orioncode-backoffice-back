@@ -4,7 +4,7 @@
   "description": "Endpoint MCP para búsqueda de colaboradores en OrionCode Backoffice.",
   "server": {
     "url": "http://localhost:8090/api/mcp",
-    "protocol": "jsonrpc2.0"
+    "protocol": "sse"
   },
   "tools": [
     {
