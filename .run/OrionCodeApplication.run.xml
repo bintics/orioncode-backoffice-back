@@ -1,0 +1,17 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="OrionCodeApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+    <option name="FRAME_DEACTIVATION_UPDATE_POLICY" value="UnknownPolicyInFreeMode" />
+    <module name="backoffice" />
+    <option name="SPRING_BOOT_MAIN_CLASS" value="com.orioncode.OrionCodeApplication" />
+    <option name="VM_PARAMETERS" value="-Dspring.profiles.active=default" />
+    <extension name="coverage">
+      <pattern>
+        <option name="PATTERN" value="com.orioncode.*" />
+        <option name="ENABLED" value="true" />
+      </pattern>
+    </extension>
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>

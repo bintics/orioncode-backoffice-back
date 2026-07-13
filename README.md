@@ -78,6 +78,20 @@ mvn spring-boot:run
 
 Para más detalles, consulta [COMO_EJECUTAR.md](docs/COMO_EJECUTAR.md)
 
+## 🤖 MCP (Model Context Protocol)
+
+La integración MCP ahora usa `spring-ai-starter-mcp-server-webmvc` (MCP Server Boot Starter), por lo que el protocolo lo gestiona Spring AI en lugar de un controlador JSON-RPC manual.
+
+- Endpoint MCP (SSE): `GET /api/mcp`
+- Tools disponibles: `search_collaborators`, `search_projects`, `search_teams`, `search_positions`
+- Clases tool:
+  - `src/main/java/com/orioncode/mcp/tools/tools/CollaboratorMcpTool.java`
+  - `src/main/java/com/orioncode/mcp/tools/tools/ProjectMcpTool.java`
+  - `src/main/java/com/orioncode/mcp/tools/tools/TeamMcpTool.java`
+  - `src/main/java/com/orioncode/mcp/tools/tools/PositionMcpTool.java`
+
+En Cloud Run, reemplaza `http://localhost:8090` por la URL pública de tu servicio.
+
 ## 📚 Documentación Adicional
 
 - [Guía de Ejecución Completa](docs/COMO_EJECUTAR.md)

@@ -11,7 +11,9 @@ import com.orioncode.frontoffice.projects.dto.ProjectResponse;
 import com.orioncode.frontoffice.projects.dto.ProjectSearchResponseDTO;
 import com.orioncode.frontoffice.projects.entity.Project;
 import com.orioncode.frontoffice.projects.repository.ProjectRepository;
+import com.orioncode.frontoffice.projects.event.ProjectCreatedEvent;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
@@ -27,6 +29,7 @@ public class ProjectService {
 
     private final ProjectRepository projectRepository;
     private final CriterialParser criterialParser;
+    private final ApplicationEventPublisher eventPublisher;
 
     @Transactional(readOnly = true)
     public List<ProjectResponse> getAllProjects() {
@@ -62,11 +65,14 @@ public class ProjectService {
         project.setId(requestDTO.getId());
         project.setName(requestDTO.getName());
         project.setDescription(requestDTO.getDescription());
-        project.setStatus("New");
+        // Nuevo estatus agnóstico para integración externa
+        project.setStatus("CREATING_REPOSITORY");
         project.setOwnerId(requestDTO.getOwnerId());
         project.setTypeId(requestDTO.getTypeId());
 
         Project savedProject = projectRepository.save(project);
+        // Publicar evento para listeners
+        eventPublisher.publishEvent(new ProjectCreatedEvent(this, savedProject));
         return convertToDTO(savedProject);
     }
 
@@ -158,4 +164,3 @@ public class ProjectService {
         );
     }
 }
-
